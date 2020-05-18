@@ -111,46 +111,88 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-Environment/CMakeFiles/simviz_spacerobotics.dir/rule:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/simviz_spacerobotics.dir/rule
-.PHONY : Environment/CMakeFiles/simviz_spacerobotics.dir/rule
+Environment/CMakeFiles/simviz_demo.dir/rule:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/simviz_demo.dir/rule
+.PHONY : Environment/CMakeFiles/simviz_demo.dir/rule
 
 # Convenience name for target.
-simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/rule
+simviz_demo: Environment/CMakeFiles/simviz_demo.dir/rule
 
-.PHONY : simviz_spacerobotics
+.PHONY : simviz_demo
 
 # fast build rule for target.
-simviz_spacerobotics/fast:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/build
-.PHONY : simviz_spacerobotics/fast
+simviz_demo/fast:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/build
+.PHONY : simviz_demo/fast
 
-simviz_spacerobotics.o: simviz_spacerobotics.cpp.o
+# Convenience name for target.
+Environment/CMakeFiles/controller_demo.dir/rule:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_demo.dir/rule
+.PHONY : Environment/CMakeFiles/controller_demo.dir/rule
 
-.PHONY : simviz_spacerobotics.o
+# Convenience name for target.
+controller_demo: Environment/CMakeFiles/controller_demo.dir/rule
+
+.PHONY : controller_demo
+
+# fast build rule for target.
+controller_demo/fast:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/build
+.PHONY : controller_demo/fast
+
+controller_demo.o: controller_demo.cpp.o
+
+.PHONY : controller_demo.o
 
 # target to build an object file
-simviz_spacerobotics.cpp.o:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o
-.PHONY : simviz_spacerobotics.cpp.o
+controller_demo.cpp.o:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/controller_demo.cpp.o
+.PHONY : controller_demo.cpp.o
 
-simviz_spacerobotics.i: simviz_spacerobotics.cpp.i
+controller_demo.i: controller_demo.cpp.i
 
-.PHONY : simviz_spacerobotics.i
+.PHONY : controller_demo.i
 
 # target to preprocess a source file
-simviz_spacerobotics.cpp.i:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.i
-.PHONY : simviz_spacerobotics.cpp.i
+controller_demo.cpp.i:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/controller_demo.cpp.i
+.PHONY : controller_demo.cpp.i
 
-simviz_spacerobotics.s: simviz_spacerobotics.cpp.s
+controller_demo.s: controller_demo.cpp.s
 
-.PHONY : simviz_spacerobotics.s
+.PHONY : controller_demo.s
 
 # target to generate assembly for a file
-simviz_spacerobotics.cpp.s:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.s
-.PHONY : simviz_spacerobotics.cpp.s
+controller_demo.cpp.s:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/controller_demo.cpp.s
+.PHONY : controller_demo.cpp.s
+
+simviz_demo.o: simviz_demo.cpp.o
+
+.PHONY : simviz_demo.o
+
+# target to build an object file
+simviz_demo.cpp.o:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/simviz_demo.cpp.o
+.PHONY : simviz_demo.cpp.o
+
+simviz_demo.i: simviz_demo.cpp.i
+
+.PHONY : simviz_demo.i
+
+# target to preprocess a source file
+simviz_demo.cpp.i:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/simviz_demo.cpp.i
+.PHONY : simviz_demo.cpp.i
+
+simviz_demo.s: simviz_demo.cpp.s
+
+.PHONY : simviz_demo.s
+
+# target to generate assembly for a file
+simviz_demo.cpp.s:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/simviz_demo.cpp.s
+.PHONY : simviz_demo.cpp.s
 
 # Help Target
 help:
@@ -159,11 +201,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... simviz_spacerobotics"
 	@echo "... edit_cache"
-	@echo "... simviz_spacerobotics.o"
-	@echo "... simviz_spacerobotics.i"
-	@echo "... simviz_spacerobotics.s"
+	@echo "... simviz_demo"
+	@echo "... controller_demo"
+	@echo "... controller_demo.o"
+	@echo "... controller_demo.i"
+	@echo "... controller_demo.s"
+	@echo "... simviz_demo.o"
+	@echo "... simviz_demo.i"
+	@echo "... simviz_demo.s"
 .PHONY : help
 
 

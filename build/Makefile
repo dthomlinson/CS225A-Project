@@ -111,17 +111,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named simviz_spacerobotics
+# Target rules for targets named simviz_demo
 
 # Build rule for target.
-simviz_spacerobotics: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 simviz_spacerobotics
-.PHONY : simviz_spacerobotics
+simviz_demo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_demo
+.PHONY : simviz_demo
 
 # fast build rule for target.
-simviz_spacerobotics/fast:
-	$(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/build
-.PHONY : simviz_spacerobotics/fast
+simviz_demo/fast:
+	$(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/build
+.PHONY : simviz_demo/fast
+
+#=============================================================================
+# Target rules for targets named controller_demo
+
+# Build rule for target.
+controller_demo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 controller_demo
+.PHONY : controller_demo
+
+# fast build rule for target.
+controller_demo/fast:
+	$(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/build
+.PHONY : controller_demo/fast
 
 # Help Target
 help:
@@ -131,7 +144,8 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... simviz_spacerobotics"
+	@echo "... simviz_demo"
+	@echo "... controller_demo"
 .PHONY : help
 
 
