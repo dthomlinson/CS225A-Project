@@ -111,6 +111,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+Environment/CMakeFiles/controller_project.dir/rule:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_project.dir/rule
+.PHONY : Environment/CMakeFiles/controller_project.dir/rule
+
+# Convenience name for target.
+controller_project: Environment/CMakeFiles/controller_project.dir/rule
+
+.PHONY : controller_project
+
+# fast build rule for target.
+controller_project/fast:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/build
+.PHONY : controller_project/fast
+
+# Convenience name for target.
 Environment/CMakeFiles/simviz_demo.dir/rule:
 	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/simviz_demo.dir/rule
 .PHONY : Environment/CMakeFiles/simviz_demo.dir/rule
@@ -139,6 +154,33 @@ controller_demo: Environment/CMakeFiles/controller_demo.dir/rule
 controller_demo/fast:
 	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/build
 .PHONY : controller_demo/fast
+
+controller.o: controller.cpp.o
+
+.PHONY : controller.o
+
+# target to build an object file
+controller.cpp.o:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/controller.cpp.o
+.PHONY : controller.cpp.o
+
+controller.i: controller.cpp.i
+
+.PHONY : controller.i
+
+# target to preprocess a source file
+controller.cpp.i:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/controller.cpp.i
+.PHONY : controller.cpp.i
+
+controller.s: controller.cpp.s
+
+.PHONY : controller.s
+
+# target to generate assembly for a file
+controller.cpp.s:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/controller.cpp.s
+.PHONY : controller.cpp.s
 
 controller_demo.o: controller_demo.cpp.o
 
@@ -201,9 +243,13 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... controller_project"
 	@echo "... edit_cache"
 	@echo "... simviz_demo"
 	@echo "... controller_demo"
+	@echo "... controller.o"
+	@echo "... controller.i"
+	@echo "... controller.s"
 	@echo "... controller_demo.o"
 	@echo "... controller_demo.i"
 	@echo "... controller_demo.s"

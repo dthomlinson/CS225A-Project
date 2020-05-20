@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named controller_project
+
+# Build rule for target.
+controller_project: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 controller_project
+.PHONY : controller_project
+
+# fast build rule for target.
+controller_project/fast:
+	$(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/build
+.PHONY : controller_project/fast
+
+#=============================================================================
 # Target rules for targets named simviz_demo
 
 # Build rule for target.
@@ -144,6 +157,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... controller_project"
 	@echo "... simviz_demo"
 	@echo "... controller_demo"
 .PHONY : help

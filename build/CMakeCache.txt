@@ -202,6 +202,9 @@ SAI2-GRAPHICS_DIR:PATH=/home/manuel/SAI/core/sai2-graphics/build
 //The directory containing a CMake configuration file for SAI2-MODEL.
 SAI2-MODEL_DIR:PATH=/home/manuel/SAI/core/sai2-model/build
 
+//The directory containing a CMake configuration file for SAI2-PRIMITIVES.
+SAI2-PRIMITIVES_DIR:PATH=/home/manuel/SAI/core/sai2-primitives/build
+
 //The directory containing a CMake configuration file for SAI2-SIMULATION.
 SAI2-SIMULATION_DIR:PATH=/home/manuel/SAI/core/sai2-simulation/build
 

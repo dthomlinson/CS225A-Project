@@ -38,7 +38,7 @@
 	    <!-- </visual> -->
 	<!-- </static_object> -->
 
-<!-- <static_object name="Table"> -->
+	<!-- <static_object name="Table"> -->
 		<!-- <origin xyz="0.0 -0.8 0" rpy="0 0 0" /> -->
 		<!-- <collision> -->
 	        <!-- <origin xyz="0.0 0.0 0.2715" rpy="0 0 0" /> -->
@@ -56,7 +56,7 @@
 	    <!-- </visual> -->
 	<!-- </static_object> -->
 
-		<!-- <static_object name="Cup2">
+	<!-- <static_object name="Cup2">
 		<origin xyz="0.2 -0.6 0.543" rpy="0 0 0" />
 	    <visual>
 	        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />

@@ -25,7 +25,7 @@ double sat(double x) {
 #define RAD(deg) ((double)(deg) * M_PI / 180.0)
 
 // Location of URDF files specifying world and robot information
-const string robot_file = "./resources/panda_collision.urdf";
+const string robot_file = "./resources/Divebot_Hybrid.urdf";
 
 // Redis is just a key value store, publish/subscribe is also possible
 // The visualizer and simulator will have keys like "cs225a::robot::{ROBOTNAME}::sensors::q"
@@ -59,7 +59,7 @@ int main() {
 
 	// prepare controller
 	int dof = robot->dof();
-	const string link_name = "link7";
+	const string link_name = "endEffector_left";
 	const Vector3d pos_in_link = Vector3d(0, 0, 0.15);
 
 	VectorXd control_torques = VectorXd::Zero(dof);

@@ -60,7 +60,7 @@
       <collision>
         <origin xyz="0 0 0.095" rpy="0 0 0" />
         <geometry>
-          <!-- <mesh filename="../../../model/test_objects/meshes/collision/satellite5.obj"/> -->
+          <!-- <mesh filename="../../../model/test_objects/meshes/collision/satellite4.obj"/> -->
           <box size="0.001 0.001 0.001" />
         </geometry>
       </collision>
