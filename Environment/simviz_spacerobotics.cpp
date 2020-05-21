@@ -18,13 +18,11 @@ using namespace std;
 using namespace Eigen;
 
 // specify urdf and robots 
-// const string world_file = "./resources/world.urdf";
 const string world_file = "./resources/world.urdf";
 const string robot_file = "./resources/Divebot_Hybrid.urdf";
-// const string robot_file = "./resources/panda_collision.urdf";
-const string obj_file = "./resources/cup.urdf";
-const string robot_name = "panda_collision";
-const string obj_name = "cup"; 
+const string obj_file = "./resources/satellite.urdf";
+const string robot_name = "oceanone";
+const string obj_name = "satellite"; 
 const string camera_name = "camera_fixed";
 
 RedisClient redis_client;
