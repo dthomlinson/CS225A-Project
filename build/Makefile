@@ -111,43 +111,43 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named controller_project
+# Target rules for targets named controller_manip
 
 # Build rule for target.
-controller_project: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 controller_project
-.PHONY : controller_project
+controller_manip: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 controller_manip
+.PHONY : controller_manip
 
 # fast build rule for target.
-controller_project/fast:
-	$(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/build
-.PHONY : controller_project/fast
+controller_manip/fast:
+	$(MAKE) -f Environment/CMakeFiles/controller_manip.dir/build.make Environment/CMakeFiles/controller_manip.dir/build
+.PHONY : controller_manip/fast
 
 #=============================================================================
-# Target rules for targets named simviz_demo
+# Target rules for targets named simviz_spacerobotics
 
 # Build rule for target.
-simviz_demo: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 simviz_demo
-.PHONY : simviz_demo
+simviz_spacerobotics: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_spacerobotics
+.PHONY : simviz_spacerobotics
 
 # fast build rule for target.
-simviz_demo/fast:
-	$(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/build
-.PHONY : simviz_demo/fast
+simviz_spacerobotics/fast:
+	$(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/build
+.PHONY : simviz_spacerobotics/fast
 
 #=============================================================================
-# Target rules for targets named controller_demo
+# Target rules for targets named controller_nav
 
 # Build rule for target.
-controller_demo: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 controller_demo
-.PHONY : controller_demo
+controller_nav: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 controller_nav
+.PHONY : controller_nav
 
 # fast build rule for target.
-controller_demo/fast:
-	$(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/build
-.PHONY : controller_demo/fast
+controller_nav/fast:
+	$(MAKE) -f Environment/CMakeFiles/controller_nav.dir/build.make Environment/CMakeFiles/controller_nav.dir/build
+.PHONY : controller_nav/fast
 
 # Help Target
 help:
@@ -157,9 +157,9 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... controller_project"
-	@echo "... simviz_demo"
-	@echo "... controller_demo"
+	@echo "... controller_manip"
+	@echo "... simviz_spacerobotics"
+	@echo "... controller_nav"
 .PHONY : help
 
 

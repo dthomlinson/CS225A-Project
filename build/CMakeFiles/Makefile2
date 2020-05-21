@@ -63,16 +63,16 @@ CMAKE_BINARY_DIR = /home/manuel/SAI/apps/CS225A-Project/build
 # Directory level rules for directory Environment
 
 # Convenience name for "all" pass in the directory.
-Environment/all: Environment/CMakeFiles/controller_project.dir/all
-Environment/all: Environment/CMakeFiles/simviz_demo.dir/all
-Environment/all: Environment/CMakeFiles/controller_demo.dir/all
+Environment/all: Environment/CMakeFiles/controller_manip.dir/all
+Environment/all: Environment/CMakeFiles/simviz_spacerobotics.dir/all
+Environment/all: Environment/CMakeFiles/controller_nav.dir/all
 
 .PHONY : Environment/all
 
 # Convenience name for "clean" pass in the directory.
-Environment/clean: Environment/CMakeFiles/controller_project.dir/clean
-Environment/clean: Environment/CMakeFiles/simviz_demo.dir/clean
-Environment/clean: Environment/CMakeFiles/controller_demo.dir/clean
+Environment/clean: Environment/CMakeFiles/controller_manip.dir/clean
+Environment/clean: Environment/CMakeFiles/simviz_spacerobotics.dir/clean
+Environment/clean: Environment/CMakeFiles/controller_nav.dir/clean
 
 .PHONY : Environment/clean
 
@@ -82,113 +82,113 @@ Environment/preinstall:
 .PHONY : Environment/preinstall
 
 #=============================================================================
-# Target rules for target Environment/CMakeFiles/controller_project.dir
+# Target rules for target Environment/CMakeFiles/controller_manip.dir
 
 # All Build rule for target.
-Environment/CMakeFiles/controller_project.dir/all:
-	$(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/depend
-	$(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=3,4 "Built target controller_project"
-.PHONY : Environment/CMakeFiles/controller_project.dir/all
+Environment/CMakeFiles/controller_manip.dir/all:
+	$(MAKE) -f Environment/CMakeFiles/controller_manip.dir/build.make Environment/CMakeFiles/controller_manip.dir/depend
+	$(MAKE) -f Environment/CMakeFiles/controller_manip.dir/build.make Environment/CMakeFiles/controller_manip.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=1,2 "Built target controller_manip"
+.PHONY : Environment/CMakeFiles/controller_manip.dir/all
 
 # Include target in all.
-all: Environment/CMakeFiles/controller_project.dir/all
+all: Environment/CMakeFiles/controller_manip.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-Environment/CMakeFiles/controller_project.dir/rule: cmake_check_build_system
+Environment/CMakeFiles/controller_manip.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_project.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_manip.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles 0
-.PHONY : Environment/CMakeFiles/controller_project.dir/rule
+.PHONY : Environment/CMakeFiles/controller_manip.dir/rule
 
 # Convenience name for target.
-controller_project: Environment/CMakeFiles/controller_project.dir/rule
+controller_manip: Environment/CMakeFiles/controller_manip.dir/rule
 
-.PHONY : controller_project
-
-# clean rule for target.
-Environment/CMakeFiles/controller_project.dir/clean:
-	$(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/clean
-.PHONY : Environment/CMakeFiles/controller_project.dir/clean
+.PHONY : controller_manip
 
 # clean rule for target.
-clean: Environment/CMakeFiles/controller_project.dir/clean
+Environment/CMakeFiles/controller_manip.dir/clean:
+	$(MAKE) -f Environment/CMakeFiles/controller_manip.dir/build.make Environment/CMakeFiles/controller_manip.dir/clean
+.PHONY : Environment/CMakeFiles/controller_manip.dir/clean
+
+# clean rule for target.
+clean: Environment/CMakeFiles/controller_manip.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target Environment/CMakeFiles/simviz_demo.dir
+# Target rules for target Environment/CMakeFiles/simviz_spacerobotics.dir
 
 # All Build rule for target.
-Environment/CMakeFiles/simviz_demo.dir/all:
-	$(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/depend
-	$(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=5,6 "Built target simviz_demo"
-.PHONY : Environment/CMakeFiles/simviz_demo.dir/all
+Environment/CMakeFiles/simviz_spacerobotics.dir/all:
+	$(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/depend
+	$(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=5,6 "Built target simviz_spacerobotics"
+.PHONY : Environment/CMakeFiles/simviz_spacerobotics.dir/all
 
 # Include target in all.
-all: Environment/CMakeFiles/simviz_demo.dir/all
+all: Environment/CMakeFiles/simviz_spacerobotics.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-Environment/CMakeFiles/simviz_demo.dir/rule: cmake_check_build_system
+Environment/CMakeFiles/simviz_spacerobotics.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/simviz_demo.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/simviz_spacerobotics.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles 0
-.PHONY : Environment/CMakeFiles/simviz_demo.dir/rule
+.PHONY : Environment/CMakeFiles/simviz_spacerobotics.dir/rule
 
 # Convenience name for target.
-simviz_demo: Environment/CMakeFiles/simviz_demo.dir/rule
+simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/rule
 
-.PHONY : simviz_demo
-
-# clean rule for target.
-Environment/CMakeFiles/simviz_demo.dir/clean:
-	$(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/clean
-.PHONY : Environment/CMakeFiles/simviz_demo.dir/clean
+.PHONY : simviz_spacerobotics
 
 # clean rule for target.
-clean: Environment/CMakeFiles/simviz_demo.dir/clean
+Environment/CMakeFiles/simviz_spacerobotics.dir/clean:
+	$(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/clean
+.PHONY : Environment/CMakeFiles/simviz_spacerobotics.dir/clean
+
+# clean rule for target.
+clean: Environment/CMakeFiles/simviz_spacerobotics.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target Environment/CMakeFiles/controller_demo.dir
+# Target rules for target Environment/CMakeFiles/controller_nav.dir
 
 # All Build rule for target.
-Environment/CMakeFiles/controller_demo.dir/all:
-	$(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/depend
-	$(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=1,2 "Built target controller_demo"
-.PHONY : Environment/CMakeFiles/controller_demo.dir/all
+Environment/CMakeFiles/controller_nav.dir/all:
+	$(MAKE) -f Environment/CMakeFiles/controller_nav.dir/build.make Environment/CMakeFiles/controller_nav.dir/depend
+	$(MAKE) -f Environment/CMakeFiles/controller_nav.dir/build.make Environment/CMakeFiles/controller_nav.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=3,4 "Built target controller_nav"
+.PHONY : Environment/CMakeFiles/controller_nav.dir/all
 
 # Include target in all.
-all: Environment/CMakeFiles/controller_demo.dir/all
+all: Environment/CMakeFiles/controller_nav.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-Environment/CMakeFiles/controller_demo.dir/rule: cmake_check_build_system
+Environment/CMakeFiles/controller_nav.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_demo.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_nav.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles 0
-.PHONY : Environment/CMakeFiles/controller_demo.dir/rule
+.PHONY : Environment/CMakeFiles/controller_nav.dir/rule
 
 # Convenience name for target.
-controller_demo: Environment/CMakeFiles/controller_demo.dir/rule
+controller_nav: Environment/CMakeFiles/controller_nav.dir/rule
 
-.PHONY : controller_demo
-
-# clean rule for target.
-Environment/CMakeFiles/controller_demo.dir/clean:
-	$(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/clean
-.PHONY : Environment/CMakeFiles/controller_demo.dir/clean
+.PHONY : controller_nav
 
 # clean rule for target.
-clean: Environment/CMakeFiles/controller_demo.dir/clean
+Environment/CMakeFiles/controller_nav.dir/clean:
+	$(MAKE) -f Environment/CMakeFiles/controller_nav.dir/build.make Environment/CMakeFiles/controller_nav.dir/clean
+.PHONY : Environment/CMakeFiles/controller_nav.dir/clean
+
+# clean rule for target.
+clean: Environment/CMakeFiles/controller_nav.dir/clean
 
 .PHONY : clean
 

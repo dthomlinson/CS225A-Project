@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/manuel/SAI/apps/CS225A-Project/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,130 +111,130 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-Environment/CMakeFiles/controller_project.dir/rule:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_project.dir/rule
-.PHONY : Environment/CMakeFiles/controller_project.dir/rule
+Environment/CMakeFiles/controller_manip.dir/rule:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_manip.dir/rule
+.PHONY : Environment/CMakeFiles/controller_manip.dir/rule
 
 # Convenience name for target.
-controller_project: Environment/CMakeFiles/controller_project.dir/rule
+controller_manip: Environment/CMakeFiles/controller_manip.dir/rule
 
-.PHONY : controller_project
+.PHONY : controller_manip
 
 # fast build rule for target.
-controller_project/fast:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/build
-.PHONY : controller_project/fast
+controller_manip/fast:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_manip.dir/build.make Environment/CMakeFiles/controller_manip.dir/build
+.PHONY : controller_manip/fast
 
 # Convenience name for target.
-Environment/CMakeFiles/simviz_demo.dir/rule:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/simviz_demo.dir/rule
-.PHONY : Environment/CMakeFiles/simviz_demo.dir/rule
+Environment/CMakeFiles/simviz_spacerobotics.dir/rule:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/simviz_spacerobotics.dir/rule
+.PHONY : Environment/CMakeFiles/simviz_spacerobotics.dir/rule
 
 # Convenience name for target.
-simviz_demo: Environment/CMakeFiles/simviz_demo.dir/rule
+simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/rule
 
-.PHONY : simviz_demo
+.PHONY : simviz_spacerobotics
 
 # fast build rule for target.
-simviz_demo/fast:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/build
-.PHONY : simviz_demo/fast
+simviz_spacerobotics/fast:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/build
+.PHONY : simviz_spacerobotics/fast
 
 # Convenience name for target.
-Environment/CMakeFiles/controller_demo.dir/rule:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_demo.dir/rule
-.PHONY : Environment/CMakeFiles/controller_demo.dir/rule
+Environment/CMakeFiles/controller_nav.dir/rule:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f CMakeFiles/Makefile2 Environment/CMakeFiles/controller_nav.dir/rule
+.PHONY : Environment/CMakeFiles/controller_nav.dir/rule
 
 # Convenience name for target.
-controller_demo: Environment/CMakeFiles/controller_demo.dir/rule
+controller_nav: Environment/CMakeFiles/controller_nav.dir/rule
 
-.PHONY : controller_demo
+.PHONY : controller_nav
 
 # fast build rule for target.
-controller_demo/fast:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/build
-.PHONY : controller_demo/fast
+controller_nav/fast:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_nav.dir/build.make Environment/CMakeFiles/controller_nav.dir/build
+.PHONY : controller_nav/fast
 
-controller.o: controller.cpp.o
+controller_manip.o: controller_manip.cpp.o
 
-.PHONY : controller.o
-
-# target to build an object file
-controller.cpp.o:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/controller.cpp.o
-.PHONY : controller.cpp.o
-
-controller.i: controller.cpp.i
-
-.PHONY : controller.i
-
-# target to preprocess a source file
-controller.cpp.i:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/controller.cpp.i
-.PHONY : controller.cpp.i
-
-controller.s: controller.cpp.s
-
-.PHONY : controller.s
-
-# target to generate assembly for a file
-controller.cpp.s:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_project.dir/build.make Environment/CMakeFiles/controller_project.dir/controller.cpp.s
-.PHONY : controller.cpp.s
-
-controller_demo.o: controller_demo.cpp.o
-
-.PHONY : controller_demo.o
+.PHONY : controller_manip.o
 
 # target to build an object file
-controller_demo.cpp.o:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/controller_demo.cpp.o
-.PHONY : controller_demo.cpp.o
+controller_manip.cpp.o:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_manip.dir/build.make Environment/CMakeFiles/controller_manip.dir/controller_manip.cpp.o
+.PHONY : controller_manip.cpp.o
 
-controller_demo.i: controller_demo.cpp.i
+controller_manip.i: controller_manip.cpp.i
 
-.PHONY : controller_demo.i
+.PHONY : controller_manip.i
 
 # target to preprocess a source file
-controller_demo.cpp.i:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/controller_demo.cpp.i
-.PHONY : controller_demo.cpp.i
+controller_manip.cpp.i:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_manip.dir/build.make Environment/CMakeFiles/controller_manip.dir/controller_manip.cpp.i
+.PHONY : controller_manip.cpp.i
 
-controller_demo.s: controller_demo.cpp.s
+controller_manip.s: controller_manip.cpp.s
 
-.PHONY : controller_demo.s
+.PHONY : controller_manip.s
 
 # target to generate assembly for a file
-controller_demo.cpp.s:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_demo.dir/build.make Environment/CMakeFiles/controller_demo.dir/controller_demo.cpp.s
-.PHONY : controller_demo.cpp.s
+controller_manip.cpp.s:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_manip.dir/build.make Environment/CMakeFiles/controller_manip.dir/controller_manip.cpp.s
+.PHONY : controller_manip.cpp.s
 
-simviz_demo.o: simviz_demo.cpp.o
+controller_nav.o: controller_nav.cpp.o
 
-.PHONY : simviz_demo.o
+.PHONY : controller_nav.o
 
 # target to build an object file
-simviz_demo.cpp.o:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/simviz_demo.cpp.o
-.PHONY : simviz_demo.cpp.o
+controller_nav.cpp.o:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_nav.dir/build.make Environment/CMakeFiles/controller_nav.dir/controller_nav.cpp.o
+.PHONY : controller_nav.cpp.o
 
-simviz_demo.i: simviz_demo.cpp.i
+controller_nav.i: controller_nav.cpp.i
 
-.PHONY : simviz_demo.i
+.PHONY : controller_nav.i
 
 # target to preprocess a source file
-simviz_demo.cpp.i:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/simviz_demo.cpp.i
-.PHONY : simviz_demo.cpp.i
+controller_nav.cpp.i:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_nav.dir/build.make Environment/CMakeFiles/controller_nav.dir/controller_nav.cpp.i
+.PHONY : controller_nav.cpp.i
 
-simviz_demo.s: simviz_demo.cpp.s
+controller_nav.s: controller_nav.cpp.s
 
-.PHONY : simviz_demo.s
+.PHONY : controller_nav.s
 
 # target to generate assembly for a file
-simviz_demo.cpp.s:
-	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_demo.dir/build.make Environment/CMakeFiles/simviz_demo.dir/simviz_demo.cpp.s
-.PHONY : simviz_demo.cpp.s
+controller_nav.cpp.s:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/controller_nav.dir/build.make Environment/CMakeFiles/controller_nav.dir/controller_nav.cpp.s
+.PHONY : controller_nav.cpp.s
+
+simviz_spacerobotics.o: simviz_spacerobotics.cpp.o
+
+.PHONY : simviz_spacerobotics.o
+
+# target to build an object file
+simviz_spacerobotics.cpp.o:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o
+.PHONY : simviz_spacerobotics.cpp.o
+
+simviz_spacerobotics.i: simviz_spacerobotics.cpp.i
+
+.PHONY : simviz_spacerobotics.i
+
+# target to preprocess a source file
+simviz_spacerobotics.cpp.i:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.i
+.PHONY : simviz_spacerobotics.cpp.i
+
+simviz_spacerobotics.s: simviz_spacerobotics.cpp.s
+
+.PHONY : simviz_spacerobotics.s
+
+# target to generate assembly for a file
+simviz_spacerobotics.cpp.s:
+	cd /home/manuel/SAI/apps/CS225A-Project/build && $(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.s
+.PHONY : simviz_spacerobotics.cpp.s
 
 # Help Target
 help:
@@ -242,20 +242,20 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... controller_project"
 	@echo "... edit_cache"
-	@echo "... simviz_demo"
-	@echo "... controller_demo"
-	@echo "... controller.o"
-	@echo "... controller.i"
-	@echo "... controller.s"
-	@echo "... controller_demo.o"
-	@echo "... controller_demo.i"
-	@echo "... controller_demo.s"
-	@echo "... simviz_demo.o"
-	@echo "... simviz_demo.i"
-	@echo "... simviz_demo.s"
+	@echo "... controller_manip"
+	@echo "... rebuild_cache"
+	@echo "... simviz_spacerobotics"
+	@echo "... controller_nav"
+	@echo "... controller_manip.o"
+	@echo "... controller_manip.i"
+	@echo "... controller_manip.s"
+	@echo "... controller_nav.o"
+	@echo "... controller_nav.i"
+	@echo "... controller_nav.s"
+	@echo "... simviz_spacerobotics.o"
+	@echo "... simviz_spacerobotics.i"
+	@echo "... simviz_spacerobotics.s"
 .PHONY : help
 
 
