@@ -88,55 +88,55 @@ controller_nav_OBJECTS = \
 # External object files for target controller_nav
 controller_nav_EXTERNAL_OBJECTS =
 
-../bin/collision_demo/controller_nav: Environment/CMakeFiles/controller_nav.dir/controller_nav.cpp.o
-../bin/collision_demo/controller_nav: Environment/CMakeFiles/controller_nav.dir/build.make
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-common/build/libsai2-common.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/chai3d/build/libchai3d.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libGL.so
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libGLU.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-simulation/build/libsai2-simulation.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-model/build/libsai2-model.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-model/rbdl/build/librbdl.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-graphics/build/libsai2-graphics.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/chai3d/build/libchai3d.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libGL.so
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libGLU.so
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libhiredis.so
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libglfw.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-primitives/build/libsai2-primitives.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/Linux/x64/release/lib/shared/libReflexxesTypeII.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-common/build/libsai2-common.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/chai3d/build/libchai3d.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libGL.so
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libGLU.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-simulation/build/libsai2-simulation.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-model/build/libsai2-model.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-model/rbdl/build/librbdl.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-graphics/build/libsai2-graphics.a
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/chai3d/build/libchai3d.a
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libGL.so
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libGLU.so
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libhiredis.so
-../bin/collision_demo/controller_nav: /usr/lib/x86_64-linux-gnu/libglfw.so
-../bin/collision_demo/controller_nav: /home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/Linux/x64/release/lib/shared/libReflexxesTypeII.so
-../bin/collision_demo/controller_nav: Environment/CMakeFiles/controller_nav.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../bin/collision_demo/controller_nav"
+../bin/spacerobotics/controller_nav: Environment/CMakeFiles/controller_nav.dir/controller_nav.cpp.o
+../bin/spacerobotics/controller_nav: Environment/CMakeFiles/controller_nav.dir/build.make
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-common/build/libsai2-common.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/chai3d/build/libchai3d.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libGL.so
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libGLU.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-simulation/build/libsai2-simulation.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-model/build/libsai2-model.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-model/rbdl/build/librbdl.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-graphics/build/libsai2-graphics.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/chai3d/build/libchai3d.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libGL.so
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libGLU.so
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libhiredis.so
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libglfw.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-primitives/build/libsai2-primitives.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/Linux/x64/release/lib/shared/libReflexxesTypeII.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-common/build/libsai2-common.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/chai3d/build/libchai3d.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libGL.so
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libGLU.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-simulation/build/libsai2-simulation.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-model/build/libsai2-model.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-model/rbdl/build/librbdl.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-graphics/build/libsai2-graphics.a
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/chai3d/build/libchai3d.a
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libGL.so
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libGLU.so
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libhiredis.so
+../bin/spacerobotics/controller_nav: /usr/lib/x86_64-linux-gnu/libglfw.so
+../bin/spacerobotics/controller_nav: /home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/Linux/x64/release/lib/shared/libReflexxesTypeII.so
+../bin/spacerobotics/controller_nav: Environment/CMakeFiles/controller_nav.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../bin/spacerobotics/controller_nav"
 	cd /home/manuel/SAI/apps/CS225A-Project/build/Environment && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/controller_nav.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-Environment/CMakeFiles/controller_nav.dir/build: ../bin/collision_demo/controller_nav
+Environment/CMakeFiles/controller_nav.dir/build: ../bin/spacerobotics/controller_nav
 
 .PHONY : Environment/CMakeFiles/controller_nav.dir/build
 

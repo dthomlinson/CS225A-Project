@@ -1,6 +1,5 @@
-// This example application loads a URDF world file and simulates two robots
-// with physics and contact in a Dynamics3D virtual world. A graphics model of it is also shown using 
-// Chai3D.
+// This controller locks two oceanone arms to a fixed position and moves the body position
+// and orientation
 
 #include "Sai2Model.h"
 #include "redis/RedisClient.h"

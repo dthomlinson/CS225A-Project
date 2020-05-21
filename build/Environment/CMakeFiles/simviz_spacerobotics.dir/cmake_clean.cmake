@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o"
-  "../../bin/collision_demo/simviz_spacerobotics.pdb"
-  "../../bin/collision_demo/simviz_spacerobotics"
+  "../../bin/spacerobotics/simviz_spacerobotics.pdb"
+  "../../bin/spacerobotics/simviz_spacerobotics"
 )
 
 # Per-language clean rules from dependency scanning.

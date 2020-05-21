@@ -88,36 +88,36 @@ simviz_spacerobotics_OBJECTS = \
 # External object files for target simviz_spacerobotics
 simviz_spacerobotics_EXTERNAL_OBJECTS =
 
-../bin/collision_demo/simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o
-../bin/collision_demo/simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/build.make
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-common/build/libsai2-common.a
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/chai3d/build/libchai3d.a
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libGL.so
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libGLU.so
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-simulation/build/libsai2-simulation.a
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-model/build/libsai2-model.a
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-model/rbdl/build/librbdl.so
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-graphics/build/libsai2-graphics.a
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/chai3d/build/libchai3d.a
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libGL.so
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libGLU.so
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libhiredis.so
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libglfw.so
-../bin/collision_demo/simviz_spacerobotics: /home/manuel/SAI/core/sai2-model/rbdl/build/librbdl.so
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libhiredis.so
-../bin/collision_demo/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libglfw.so
-../bin/collision_demo/simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../bin/collision_demo/simviz_spacerobotics"
+../bin/spacerobotics/simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o
+../bin/spacerobotics/simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/build.make
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-common/build/libsai2-common.a
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/chai3d/build/libchai3d.a
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libGL.so
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libGLU.so
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-simulation/build/libsai2-simulation.a
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-model/build/libsai2-model.a
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-model/rbdl/build/librbdl.so
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-graphics/build/libsai2-graphics.a
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-urdfreader/build/libsai2-urdf.a
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/chai3d/build/libchai3d.a
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libGL.so
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libGLU.so
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libhiredis.so
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libglfw.so
+../bin/spacerobotics/simviz_spacerobotics: /home/manuel/SAI/core/sai2-model/rbdl/build/librbdl.so
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libhiredis.so
+../bin/spacerobotics/simviz_spacerobotics: /usr/lib/x86_64-linux-gnu/libglfw.so
+../bin/spacerobotics/simviz_spacerobotics: Environment/CMakeFiles/simviz_spacerobotics.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../bin/spacerobotics/simviz_spacerobotics"
 	cd /home/manuel/SAI/apps/CS225A-Project/build/Environment && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/simviz_spacerobotics.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-Environment/CMakeFiles/simviz_spacerobotics.dir/build: ../bin/collision_demo/simviz_spacerobotics
+Environment/CMakeFiles/simviz_spacerobotics.dir/build: ../bin/spacerobotics/simviz_spacerobotics
 
 .PHONY : Environment/CMakeFiles/simviz_spacerobotics.dir/build
 

@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/controller_nav.dir/controller_nav.cpp.o"
-  "../../bin/collision_demo/controller_nav.pdb"
-  "../../bin/collision_demo/controller_nav"
+  "../../bin/spacerobotics/controller_nav.pdb"
+  "../../bin/spacerobotics/controller_nav"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -2,8 +2,8 @@
 
 <world name="demo_world" gravity="0.0 0.0 0.0">
 
-	<robot name="panda_collision">
-		<model dir="./resources" path="Divebot_Hybrid.urdf" name="panda_collision" />
+	<robot name="oceanone">
+		<model dir="./resources" path="Divebot_Hybrid.urdf" name="oceanone" />
 		<origin xyz="-1.0 1.5 0" rpy="0 0 3.1416/3" />
 	</robot>
 
@@ -12,8 +12,8 @@
 		<origin xyz="0.0 0.3 0.0" rpy="0 0 0" />
 	</robot> -->
 
-	<robot name="cup">
-		<model dir="./resources" path="cup.urdf" name="cup" />
+	<robot name="satellite">
+		<model dir="./resources" path="satellite.urdf" name="satellite" />
 		<origin xyz="0 -0.35 0.593" rpy="0 0 0" />
 	</robot>
 
