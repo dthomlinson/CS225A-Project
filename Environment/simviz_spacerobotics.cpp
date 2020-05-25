@@ -29,12 +29,12 @@ RedisClient redis_client;
 
 // redis keys:
 // - write:
-const std::string JOINT_ANGLES_KEY  = "cs225a::robot::panda::sensors::q";
-const std::string JOINT_VELOCITIES_KEY = "cs225a::robot::panda::sensors::dq";
+const std::string JOINT_ANGLES_KEY  = "sai2::cs225a::project::sensors::q";
+const std::string JOINT_VELOCITIES_KEY = "sai2::cs225a::project::sensors::dq";
 const std::string OBJ_JOINT_ANGLES_KEY  = "cs225a::object::cup::sensors::q";
 const std::string OBJ_JOINT_VELOCITIES_KEY = "cs225a::object::cup::sensors::dq";
 // - read:
-const std::string JOINT_TORQUES_COMMANDED_KEY  = "cs225a::robot::panda::actuators::fgc";
+const std::string JOINT_TORQUES_COMMANDED_KEY  = "sai2::cs225a::project::actuators::fgc";
 
 // simulation thread
 void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simulation::Sai2Simulation* sim);
@@ -253,9 +253,12 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 	// create a timer
 	LoopTimer timer;
 	timer.initializeTimer();
-	timer.setLoopFrequency(1000); 
+	timer.setLoopFrequency(1000); //changes the robot rendering
+
+	double time_slowdown_factor = 1.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
+	
 	bool fTimerDidSleep = true;
-	double start_time = timer.elapsedTime(); //secs
+	double start_time = timer.elapsedTime()/ time_slowdown_factor;//secs
 	double last_time = start_time;
 
 	// init variables
@@ -274,7 +277,7 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 		sim->setJointTorques(robot_name, command_torques + g);
 
 		// integrate forward
-		double curr_time = timer.elapsedTime();
+		double curr_time = timer.elapsedTime()/ time_slowdown_factor;
 		double loop_dt = curr_time - last_time; 
 		sim->integrate(loop_dt);
 
@@ -298,7 +301,7 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 		last_time = curr_time;
 	}
 
-	double end_time = timer.elapsedTime();
+	double end_time = timer.elapsedTime()/time_slowdown_factor;
 	std::cout << "\n";
 	std::cout << "Simulation Loop run time  : " << end_time << " seconds\n";
 	std::cout << "Simulation Loop updates   : " << timer.elapsedCycles() << "\n";

@@ -1,5 +1,4 @@
-// This controller locks two oceanone arms to a fixed position and moves the body position
-// and orientation
+// This controller moves the two arms and the body using posori controllers
 
 #include "Sai2Model.h"
 #include "redis/RedisClient.h"
@@ -64,12 +63,13 @@ int main() {
 
 	// prepare controller
 	int dof = robot->dof();
+	// std::cout << "degrees of freedom:" << dof; // 20 for oceanone
 	VectorXd command_torques = VectorXd::Zero(dof);
 	MatrixXd N_prec = MatrixXd::Identity(dof, dof);
 
 	// pose task
 	const string control_link = "endEffector_left";
-	const Vector3d control_point = Vector3d(0,0,0.07);
+	const Vector3d control_point = Vector3d(0,0,0.0);
 	auto posori_task = new Sai2Primitives::PosOriTask(robot, control_link, control_point);
 
 #ifdef USING_OTG
@@ -98,7 +98,8 @@ int main() {
 	joint_task->_kv = 15.0;
 
 	VectorXd q_init_desired = initial_q;
-	q_init_desired << -30.0, -15.0, -15.0, -105.0, 0.0, 90.0, 45.0;
+	// q_init_desired << -30.0, -15.0, -15.0, -105.0, 0.0, 90.0, 45.0;
+	q_init_desired.setZero();
 	q_init_desired *= M_PI/180.0;
 	joint_task->_desired_position = q_init_desired;
 
@@ -146,6 +147,7 @@ int main() {
 		}
 
 		else if(state == POSORI_CONTROLLER)
+		// if(state == POSORI_CONTROLLER)
 		{
 			// update task model and set hierarchy
 			N_prec.setIdentity();
@@ -161,6 +163,11 @@ int main() {
 		}
 
 		// send to redis
+		command_torques.setZero();
+		// command_torques(1)=0.1;
+		// command_torques(0)=1;
+		command_torques(17)=0.01;
+		// command_torques(7)=0.001;
 		redis_client.setEigenMatrixJSON(JOINT_TORQUES_COMMANDED_KEY, command_torques);
 
 		controller_counter++;
