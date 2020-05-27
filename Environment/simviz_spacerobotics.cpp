@@ -80,6 +80,8 @@ int main() {
 	// load robots
 	auto robot = new Sai2Model::Sai2Model(robot_file, false);
 	robot->_q(0) = -0.8;
+	robot->_q(9) = 86.55788003*M_PI/180;
+	robot->_q(16) = 86.49771946*M_PI/180;
 	robot->updateModel();
 
 	// load robot objects
@@ -255,7 +257,7 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 	timer.initializeTimer();
 	timer.setLoopFrequency(1000); //changes the robot rendering
 
-	double time_slowdown_factor = 1.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
+	double time_slowdown_factor = 4.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
 	
 	bool fTimerDidSleep = true;
 	double start_time = timer.elapsedTime()/ time_slowdown_factor;//secs
