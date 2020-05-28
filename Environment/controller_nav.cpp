@@ -20,8 +20,10 @@ const string robot_file = "./resources/Divebot_Hybrid.urdf";
 
 #define JOINT_CONTROLLER      0
 #define POSORI_CONTROLLER     1
+#define BASIC_CONTROLLER	  2
 
-int state = JOINT_CONTROLLER;
+
+int state = BASIC_CONTROLLER;
 
 // redis keys:
 // - read:
@@ -39,6 +41,7 @@ std::string ROBOT_GRAVITY_KEY;
 unsigned long long controller_counter = 0;
 
 const bool inertia_regularization = true;
+
 
 int main() {
 
@@ -64,14 +67,30 @@ int main() {
 	// prepare controller
 	int dof = robot->dof();
 	// std::cout << "degrees of freedom:" << dof; // 20 for oceanone
+	const Vector3d pos_in_link = Vector3d(0, 0, 0.1);
 	VectorXd command_torques = VectorXd::Zero(dof);
 	MatrixXd N_prec = MatrixXd::Identity(dof, dof);
+
+	// model quantities for operational space control
+	MatrixXd Jv = MatrixXd::Zero(3,dof);
+	MatrixXd Lambda = MatrixXd::Zero(3,3);
+	MatrixXd J_bar = MatrixXd::Zero(dof,3);
+	MatrixXd N = MatrixXd::Zero(dof,dof);
+	VectorXd g = VectorXd::Zero(dof);
+	VectorXd b = VectorXd::Zero(dof);
+	Vector3d x;
+	Vector3d v;
+	VectorXd F(dof);
 
 	// pose task
 	const string control_link = "endEffector_left";
 	const Vector3d control_point = Vector3d(0,0,0.0);
 	auto posori_task = new Sai2Primitives::PosOriTask(robot, control_link, control_point);
 
+	robot->Jv(Jv, control_link, pos_in_link);
+	robot->taskInertiaMatrix(Lambda, Jv);
+	robot->dynConsistentInverseJacobian(J_bar, Jv);
+	robot->nullspaceMatrix(N, Jv);
 #ifdef USING_OTG
 	posori_task->_use_interpolation_flag = true;
 #else
@@ -120,6 +139,7 @@ int main() {
 		robot->_dq = redis_client.getEigenMatrixJSON(JOINT_VELOCITIES_KEY);
 
 		// update model
+		VectorXd initial_q = robot->_q;
 		robot->updateModel();
 	
 		if(state == JOINT_CONTROLLER)
@@ -162,11 +182,33 @@ int main() {
 			command_torques = posori_task_torques + joint_task_torques;
 		}
 
+		else if(state == BASIC_CONTROLLER)
+		{
+			command_torques.setZero();
+			q_init_desired = initial_q;
+			q_init_desired(0) = 1.0;
+			DiagonalMatrix<double, 20> Kp(20);
+			Kp.diagonal() << 100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100;
+			DiagonalMatrix<double, 20> Kv(20);
+			Kv.diagonal() << 100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100;
+			// robot->coriolisPlusGravity(g);
+			// robot->gravityVector(g);
+			// robot->coriolisForce(b);
+
+			// if(controller_counter % 10 == 0)
+			// {
+			// 	data_file << robot->_q(6) << '\t' << q_desired(6) << '\n';
+			// }
+
+			command_torques = Kp * (q_init_desired - robot->_q) - Kv * (robot->_dq);
+		}
 		// send to redis
-		command_torques.setZero();
+		// command_torques.setZero();
+		// command_torques(0)=1.0;
+		// posori_task->reInitializeTask();
 		// command_torques(1)=0.1;
 		// command_torques(0)=1;
-		command_torques(17)=0.01;
+		// command_torques(17)=0.01;
 		// command_torques(7)=0.001;
 		redis_client.setEigenMatrixJSON(JOINT_TORQUES_COMMANDED_KEY, command_torques);
 
