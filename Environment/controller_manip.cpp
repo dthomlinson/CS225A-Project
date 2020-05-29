@@ -29,6 +29,8 @@ int state = POSORI_CONTROLLER;
 std::string JOINT_ANGLES_KEY;
 std::string JOINT_VELOCITIES_KEY;
 std::string JOINT_TORQUES_SENSED_KEY;
+
+
 // - write
 std::string JOINT_TORQUES_COMMANDED_KEY;
 
@@ -47,6 +49,7 @@ int main() {
 	JOINT_ANGLES_KEY = "sai2::cs225a::project::sensors::q";
 	JOINT_VELOCITIES_KEY = "sai2::cs225a::project::sensors::dq";
 	JOINT_TORQUES_COMMANDED_KEY = "sai2::cs225a::project::actuators::fgc";
+
 
 	// start redis client
 	auto redis_client = RedisClient();
@@ -203,6 +206,7 @@ int main() {
 
 			//joint_task->_desired_position = initial_q;
 			joint_task->_desired_position(0) += 0.001;
+			// std::cout << "Satellite Position " << end_time << " seconds\n";
 
 			N_prec.setIdentity();
 			posori_task_left->updateTaskModel(N_prec); //Operate in Nullspace 

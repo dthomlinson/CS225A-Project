@@ -31,8 +31,19 @@ RedisClient redis_client;
 // - write:
 const std::string JOINT_ANGLES_KEY  = "sai2::cs225a::project::sensors::q";
 const std::string JOINT_VELOCITIES_KEY = "sai2::cs225a::project::sensors::dq";
-const std::string OBJ_JOINT_ANGLES_KEY  = "cs225a::object::cup::sensors::q";
-const std::string OBJ_JOINT_VELOCITIES_KEY = "cs225a::object::cup::sensors::dq";
+const std::string ROBOT_POS_KEY = "sai2::cs225a::project::rob_pos";
+const std::string OBJ_JOINT_ANGLES_KEY  = "sai2::cs225a::object::sensors::q";
+const std::string OBJ_JOINT_VELOCITIES_KEY = "sai2::cs225a::object::sensors::dq";
+const std::string OBJ_POS_KEY = "sai2::cs225a::object::obj_pos";
+const std::string CAMERA_ORI_KEY = "sai2::cs225a::camera::ori";
+const std::string CAMERA_DETECT_KEY = "sai2::cs225a::camera::detect";
+const std::string CAMERA_OBJ_POS_KEY = "sai2::cs225a::camera::obj_pos";
+
+
+// init camera detection variables 
+	Vector3d camera_pos, obj_pos, rob_pos;
+	Matrix3d camera_ori;
+
 // - read:
 const std::string JOINT_TORQUES_COMMANDED_KEY  = "sai2::cs225a::project::actuators::fgc";
 
@@ -145,7 +156,7 @@ int main() {
 	redis_client.setEigenMatrixJSON(JOINT_ANGLES_KEY, robot->_q); 
 	redis_client.setEigenMatrixJSON(JOINT_VELOCITIES_KEY, robot->_dq); 
 	redis_client.setEigenMatrixJSON(OBJ_JOINT_ANGLES_KEY, object->_q); 
-	redis_client.setEigenMatrixJSON(OBJ_JOINT_VELOCITIES_KEY, object->_dq); 
+	redis_client.setEigenMatrixJSON(OBJ_JOINT_VELOCITIES_KEY, object->_dq);
 
 	// start simulation thread
 	thread sim_thread(simulation, robot, object, sim);
@@ -257,11 +268,7 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 	timer.initializeTimer();
 	timer.setLoopFrequency(1000); //changes the robot rendering
 
-<<<<<<< HEAD
-	double time_slowdown_factor = 2.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
-=======
 	double time_slowdown_factor = 4.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
->>>>>>> 178b87ba3daec860f259af0e0ea460489eb1c2be
 	
 	bool fTimerDidSleep = true;
 	double start_time = timer.elapsedTime()/ time_slowdown_factor;//secs
@@ -290,18 +297,22 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 		// read joint positions, velocities, update model
 		sim->getJointPositions(robot_name, robot->_q);
 		sim->getJointVelocities(robot_name, robot->_dq);
+		robot->positionInWorld(rob_pos, "shoulderT_right");
 		robot->updateModel();
 
 		sim->getJointPositions(obj_name, object->_q);
 		sim->getJointVelocities(obj_name, object->_dq);
+		object->positionInWorld(obj_pos, "link6");
 		object->updateModel();
 
 		// write new robot state to redis
 		redis_client.setEigenMatrixJSON(JOINT_ANGLES_KEY, robot->_q);
 		redis_client.setEigenMatrixJSON(JOINT_VELOCITIES_KEY, robot->_dq);
+		redis_client.setEigenMatrixJSON(ROBOT_POS_KEY, rob_pos);
 
 		redis_client.setEigenMatrixJSON(OBJ_JOINT_ANGLES_KEY, object->_q);
 		redis_client.setEigenMatrixJSON(OBJ_JOINT_VELOCITIES_KEY, object->_dq);
+		redis_client.setEigenMatrixJSON(OBJ_POS_KEY, obj_pos);
 
 		//update last time
 		last_time = curr_time;
