@@ -48,11 +48,27 @@ unsigned long long controller_counter = 0;
 const bool inertia_regularization = true;
 bool printJ = true;
 
+//Max torque limits for all oceanone joints
+VectorXd maxTorque(VectorXd torque) {
+	VectorXd maxjointtorques(20);
+	maxjointtorques << 100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0;
+	// maxjointtorques << 10.0,1.0,1.0,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1;
+	for (int i=0;i<20;i++) {
+		if(abs(torque[i])>maxjointtorques[i]){
+			if (torque[i]>0.0)
+			torque[i]=maxjointtorques[i];
+			else
+			torque[i]=-maxjointtorques[i];
+		}
+	}
+	return torque;
+}
+
 int main() {
 
 	JOINT_ANGLES_KEY = "sai2::cs225a::project::sensors::q";
 	JOINT_VELOCITIES_KEY = "sai2::cs225a::project::sensors::dq";
-	JOINT_TORQUES_COMMANDED_KEY = "sai2::cs225a::object::obj_pos";
+	JOINT_TORQUES_COMMANDED_KEY = "sai2::cs225a::project::actuators::fgc";
 
 	// start redis client
 	auto redis_client = RedisClient();
@@ -75,7 +91,7 @@ int main() {
 	VectorXd command_torques = VectorXd::Zero(dof);
 	MatrixXd N_prec = MatrixXd::Identity(dof, dof);
 	VectorXd sat_pos = VectorXd::Zero(3);
-	sat_pos << 0,0,0;
+	sat_pos << 1,0.5,0;
 	// redis_client.setEigenMatrixJSON(OBJ_POS_KEY, sat_pos);
 
 	// pose task
@@ -188,9 +204,25 @@ int main() {
 			//posori_task_right->_desired_position = Vector3d(0.02, -0.03, -0.5);
 			//posori_task_right->_desired_position = -0.001*Vector3d(sin(M_PI*time), cos(M_PI*time), 0);
 			//posori_task_right->_desired_orientation = AngleAxisd(M_PI/6, Vector3d::UnitX()).toRotationMatrix() * posori_task_right->_desired_orientation;
+			
+			//Desired ocean one joint orientations for navigation
+			// initial_q(6)=-22.530476674*M_PI/180.0;
+			// initial_q(7)=-38.938842011*M_PI/180.0;
+			// initial_q(8)=-9.5874173775*M_PI/180.0;
+			// initial_q(9)=86.55788003*M_PI/180.0;
+			// initial_q(10)=35.068683992*M_PI/180.0;
+			// initial_q(11)=-32.703571509*M_PI/180.0;
+			// initial_q(12)=-22.68013325*M_PI/180.0;
+			// initial_q(13)=-22.451580385*M_PI/180.0;
+			// initial_q(14)=38.858341441*M_PI/180.0;
+			// initial_q(15)=9.6591516935*M_PI/180.0;
+			// initial_q(16)=86.49771946*M_PI/180.0;
+			// initial_q(17)=-35.222695047*M_PI/180.0;
+			// initial_q(18)=-32.634014433*M_PI/180.0;
+			// initial_q(19)=22.559812113*M_PI/180.0;
 
-			//joint_task->_desired_position = initial_q;
-			joint_task->_desired_position(0) += 0.001;
+			joint_task->_desired_position = initial_q;
+			// joint_task->_desired_position(0) += 0.001;
 			posori_task_body->_desired_position = sat_pos;
 			// posori_task_body->_desired_position();
 
@@ -203,10 +235,33 @@ int main() {
 			posori_task_body->computeTorques(posori_task_torques_body);
 			joint_task->computeTorques(joint_task_torques);
 
-			std::cout << "Posori torques: " << posori_task_torques_body << "\n";
+			// std::cout << "Posori torques: " << posori_task_torques_body << "\n";
+			//remove body commands for joint_task_torques
+			joint_task_torques(0)=0;
+			joint_task_torques(1)=0;
+			joint_task_torques(2)=0;
+			joint_task_torques(3)=0;
+			joint_task_torques(4)=0;
+			joint_task_torques(5)=0;
+			posori_task_torques_body(6)=0;
+			posori_task_torques_body(7)=0;
+			posori_task_torques_body(8)=0;
+			posori_task_torques_body(9)=0;
+			posori_task_torques_body(10)=0;
+			posori_task_torques_body(11)=0;
+			posori_task_torques_body(12)=0;
+			posori_task_torques_body(13)=0;
+			posori_task_torques_body(14)=0;
+			posori_task_torques_body(15)=0;
+			posori_task_torques_body(16)=0;
+			posori_task_torques_body(17)=0;
+			posori_task_torques_body(18)=0;
+			posori_task_torques_body(19)=0;
+
+			command_torques = posori_task_torques_body + joint_task_torques;
+			// command_torques = posori_task_torques_body;
 			// command_torques = joint_task_torques;
-			command_torques = posori_task_torques_body;
-			
+			std::cout << "command_torques: " << command_torques << "\n";
 			// if(controller_counter % 100 == 0) {
 			// 	//cout << J_tasks << endl;
 			// 	//cout << posori_task_left->_current_position << endl << endl;
