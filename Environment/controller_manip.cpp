@@ -71,15 +71,15 @@ int main() {
 
 	// pose task
 	const string control_link_left = "endEffector_left";
-	const Vector3d control_point_left = Vector3d(0,0,0.0);
+	const Vector3d control_point_left = Vector3d(0,0,0.1);
 	auto posori_task_left = new Sai2Primitives::PosOriTask(robot, control_link_left, control_point_left);
 
 	const string control_link_right = "endEffector_right";
-	const Vector3d control_point_right = Vector3d(0,0,0.0);
+	const Vector3d control_point_right = Vector3d(0,0,0.1);
 	auto posori_task_right = new Sai2Primitives::PosOriTask(robot, control_link_right, control_point_right);
 
-	const string control_link_body = "endEffector_right";
-	const Vector3d control_point_body = Vector3d(0,0,0.0);
+	const string control_link_body = "Body";
+	const Vector3d control_point_body = Vector3d(0,0,0);
 	auto posori_task_body = new Sai2Primitives::PosOriTask(robot, control_link_body, control_point_body);
 #ifdef USING_OTG
 	posori_task_left->_use_interpolation_flag = true;
@@ -117,14 +117,17 @@ int main() {
 #endif
 
 	VectorXd joint_task_torques = VectorXd::Zero(dof);
-	joint_task->_kp = 250.0;
-	joint_task->_kv = 15.0;
+	joint_task->_kp = 400.0;
+	joint_task->_kv = 40.0;
 
 	VectorXd q_init_desired = initial_q;
 	// q_init_desired << -30.0, -15.0, -15.0, -105.0, 0.0, 90.0, 45.0;
 	//q_init_desired.setZero();
 	//q_init_desired *= M_PI/180.0;
 	joint_task->_desired_position = q_init_desired;
+
+	//double x_init = (posori_task_left->_current_position(0) + posori_task_right->_current_position(0))/2;
+	double x_init = 0;
 
 	// create a timer
 	LoopTimer timer;
@@ -192,17 +195,17 @@ int main() {
 
 			// left arm trajectory
 			//posori_task_left->_desired_position = Vector3d(0.02, -0.03, -0.5);
-			//posori_task_left->_desired_position = 0.001*Vector3d(sin(M_PI*time), cos(M_PI*time), 0);
+			posori_task_left->_desired_position = Vector3d(x_init, 0.7, 0) + 0.7*Vector3d(cos(M_PI/100*time - M_PI/10), -sin(M_PI/100*time - M_PI/10), 0);
 			//posori_task_left->_desired_orientation = AngleAxisd(M_PI/6, Vector3d::UnitX()).toRotationMatrix() * posori_task_left->_desired_orientation;
 
 
 			// right arm trajectory
 			//posori_task_right->_desired_position = Vector3d(0.02, -0.03, -0.5);
-			//posori_task_right->_desired_position = -0.001*Vector3d(sin(M_PI*time), cos(M_PI*time), 0);
+			posori_task_right->_desired_position = -Vector3d(x_init, 0.7, 0) + 0.7*Vector3d(cos(M_PI/100*time - M_PI/10), sin(M_PI/100*time - M_PI/10), 0);
 			//posori_task_right->_desired_orientation = AngleAxisd(M_PI/6, Vector3d::UnitX()).toRotationMatrix() * posori_task_right->_desired_orientation;
 
 			//joint_task->_desired_position = initial_q;
-			joint_task->_desired_position(0) += 0.001;
+			//joint_task->_desired_position(0) += 0.001;
 
 			N_prec.setIdentity();
 			posori_task_left->updateTaskModel(N_prec); //Operate in Nullspace 
@@ -215,11 +218,16 @@ int main() {
 			//posori_task_body->computeTorques(posori_task_torques_body);
 			joint_task->computeTorques(joint_task_torques);
 
-			command_torques = joint_task_torques;
-			
+			command_torques = posori_task_torques_left + posori_task_torques_right + joint_task_torques;
+			command_torques(0) = 0;
+			command_torques(1) = 0;
+			command_torques(2) = 0;			
+
+
 			if(controller_counter % 100 == 0) {
 				//cout << J_tasks << endl;
 				cout << posori_task_left->_current_position << endl << endl;
+				cout << posori_task_right->_current_position << endl << endl;
 				//printJ = false;
 			}
 			//for (int i = 0; i < 3; i++) {

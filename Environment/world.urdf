@@ -14,7 +14,7 @@
 
 	<robot name="satellite">
 		<model dir="./resources" path="satellite.urdf" name="satellite" />
-		<origin xyz="0 -0.35 0.593" rpy="0 0 0" />
+		<origin xyz="-1.0 0.5 1.5" rpy="0 0 0" />
 	</robot>
 
 	<light name="light1" type="directional">
