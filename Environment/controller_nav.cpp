@@ -85,16 +85,20 @@ int main() {
 	VectorXd initial_q = robot->_q;
 	robot->updateModel();
 
+
 	// prepare controller
 	int dof = robot->dof();
 	// std::cout << "degrees of freedom:" << dof; // 20 for oceanone
 	VectorXd command_torques = VectorXd::Zero(dof);
 	MatrixXd N_prec = MatrixXd::Identity(dof, dof);
 	VectorXd sat_pos = VectorXd::Zero(3);
-	sat_pos << 1,0.5,0;
+	sat_pos << 0,0.5,0; //1,0.5,0
 	// redis_client.setEigenMatrixJSON(OBJ_POS_KEY, sat_pos);
 
 	// pose task
+
+	VectorXd docking_position = VectorXd::Zero(dof);
+	docking_position=initial_q;
 
 	const string control_link_body = "Body";
 	const Vector3d control_point_body = Vector3d(0,0,0.0);
@@ -138,6 +142,8 @@ int main() {
 	timer.setLoopFrequency(1000); 
 	double start_time = timer.elapsedTime(); //secs
 	bool fTimerDidSleep = true;
+
+	//setDynamicDecouplingNone();
 
 
 	ofstream myfile ("data.txt");
@@ -220,16 +226,19 @@ int main() {
 			// initial_q(17)=-35.222695047*M_PI/180.0;
 			// initial_q(18)=-32.634014433*M_PI/180.0;
 			// initial_q(19)=22.559812113*M_PI/180.0;
+			
 
-			joint_task->_desired_position = initial_q;
+			joint_task->_desired_position = docking_position;
 			// joint_task->_desired_position(0) += 0.001;
 			posori_task_body->_desired_position = sat_pos;
 			// posori_task_body->_desired_position();
 
+						std::cout << "Docking_position: " << docking_position << "\n";
+
 			N_prec.setIdentity();
 			posori_task_body->updateTaskModel(N_prec); //Operate in Nullspace 
 			N_prec = posori_task_body->_N;
-			joint_task->updateTaskModel(N);
+			joint_task->updateTaskModel(N_prec);
 
 			// compute torques
 			posori_task_body->computeTorques(posori_task_torques_body);
@@ -237,12 +246,12 @@ int main() {
 
 			// std::cout << "Posori torques: " << posori_task_torques_body << "\n";
 			//remove body commands for joint_task_torques
-			joint_task_torques(0)=0;
-			joint_task_torques(1)=0;
-			joint_task_torques(2)=0;
-			joint_task_torques(3)=0;
-			joint_task_torques(4)=0;
-			joint_task_torques(5)=0;
+			// joint_task_torques(0)=0;
+			// joint_task_torques(1)=0;
+			// joint_task_torques(2)=0;
+			// joint_task_torques(3)=0;
+			// joint_task_torques(4)=0;
+			// joint_task_torques(5)=0;
 			posori_task_torques_body(6)=0;
 			posori_task_torques_body(7)=0;
 			posori_task_torques_body(8)=0;
@@ -258,8 +267,8 @@ int main() {
 			posori_task_torques_body(18)=0;
 			posori_task_torques_body(19)=0;
 
-			command_torques = posori_task_torques_body + joint_task_torques;
-			// command_torques = posori_task_torques_body;
+			// command_torques = posori_task_torques_body + joint_task_torques;
+			command_torques = posori_task_torques_body;
 			// command_torques = joint_task_torques;
 			std::cout << "command_torques: " << command_torques << "\n";
 			// if(controller_counter % 100 == 0) {

@@ -23,6 +23,10 @@ timer/LoopTimer.h
 /home/manuel/SAI/apps/CS225A-Project/Environment/timer/LoopTimer.h
 GLFW/glfw3.h
 -
+uiforce/UIForceWidget.h
+/home/manuel/SAI/apps/CS225A-Project/Environment/uiforce/UIForceWidget.h
+random
+-
 signal.h
 -
 
@@ -1286,6 +1290,18 @@ unistd.h
 time.h
 -
 mach/mach_time.h
+-
+
+/home/manuel/SAI/core/sai2-common/src/uiforce/UIForceWidget.h
+Sai2Model.h
+-
+Sai2Graphics.h
+-
+chai3d.h
+-
+string
+-
+Eigen/Core
 -
 
 /home/manuel/SAI/core/sai2-graphics/src/Sai2Graphics.h
