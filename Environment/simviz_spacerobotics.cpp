@@ -310,7 +310,7 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 	timer.initializeTimer();
 	timer.setLoopFrequency(1000); //changes the robot rendering
 
-	double time_slowdown_factor = 4.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
+	double time_slowdown_factor = 6.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
 	
 	bool fTimerDidSleep = true;
 	double start_time = timer.elapsedTime()/ time_slowdown_factor;//secs

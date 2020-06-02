@@ -22,7 +22,7 @@ const string robot_file = "./resources/Divebot_Hybrid.urdf";
 #define JOINT_CONTROLLER      0
 #define POSORI_CONTROLLER     1
 
-int state = POSORI_CONTROLLER;
+int state = JOINT_CONTROLLER;
 
 // redis keys:
 // - read:
@@ -51,7 +51,7 @@ bool printJ = true;
 //Max torque limits for all oceanone joints
 VectorXd maxTorque(VectorXd torque) {
 	VectorXd maxjointtorques(20);
-	maxjointtorques << 100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0;
+	maxjointtorques << 1000.0,1000.0,1000.0,1000.0,1000.0,1000.0,1000.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0;
 	// maxjointtorques << 10.0,1.0,1.0,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1;
 	for (int i=0;i<20;i++) {
 		if(abs(torque[i])>maxjointtorques[i]){
@@ -170,116 +170,39 @@ int main() {
 		if(state == JOINT_CONTROLLER)
 		{
 			// update task model and set hierarchy
-			N_prec.setIdentity();
-			joint_task->updateTaskModel(N_prec);
-
-			// compute torques
-			joint_task->computeTorques(joint_task_torques);
-
-			command_torques = joint_task_torques;
-
-			if( (robot->_q - q_init_desired).norm() < 0.15 )
-			{
-				posori_task_body->reInitializeTask(); //
-				posori_task_body->_desired_position += Vector3d(-0.1,0.1,0.1); //
-				posori_task_body->_desired_orientation = AngleAxisd(M_PI/6, Vector3d::UnitX()).toRotationMatrix() * posori_task_body->_desired_orientation; //
-
-				joint_task->reInitializeTask();
-				joint_task->_kp = 0;
-
-				state = POSORI_CONTROLLER;
-			}
-		}
-
-		else if(state == POSORI_CONTROLLER)
-		// if(state == POSORI_CONTROLLER)
-		{
-			// update task model and set hierarchy
-			MatrixXd J_tasks(6, dof);
-			J_tasks = posori_task_body->_jacobian;
-			MatrixXd N(dof,dof);
-			robot->nullspaceMatrix(N, J_tasks);
-
-			// left arm trajectory
-			//posori_task_left->_desired_position = Vector3d(0.02, -0.03, -0.5);
-			//posori_task_left->_desired_position = 0.001*Vector3d(sin(M_PI*time), cos(M_PI*time), 0);
-			//posori_task_left->_desired_orientation = AngleAxisd(M_PI/6, Vector3d::UnitX()).toRotationMatrix() * posori_task_left->_desired_orientation;
-
-
-			// right arm trajectory
-			//posori_task_right->_desired_position = Vector3d(0.02, -0.03, -0.5);
-			//posori_task_right->_desired_position = -0.001*Vector3d(sin(M_PI*time), cos(M_PI*time), 0);
-			//posori_task_right->_desired_orientation = AngleAxisd(M_PI/6, Vector3d::UnitX()).toRotationMatrix() * posori_task_right->_desired_orientation;
-			
-			//Desired ocean one joint orientations for navigation
-			// initial_q(6)=-22.530476674*M_PI/180.0;
-			// initial_q(7)=-38.938842011*M_PI/180.0;
-			// initial_q(8)=-9.5874173775*M_PI/180.0;
-			// initial_q(9)=86.55788003*M_PI/180.0;
-			// initial_q(10)=35.068683992*M_PI/180.0;
-			// initial_q(11)=-32.703571509*M_PI/180.0;
-			// initial_q(12)=-22.68013325*M_PI/180.0;
-			// initial_q(13)=-22.451580385*M_PI/180.0;
-			// initial_q(14)=38.858341441*M_PI/180.0;
-			// initial_q(15)=9.6591516935*M_PI/180.0;
-			// initial_q(16)=86.49771946*M_PI/180.0;
-			// initial_q(17)=-35.222695047*M_PI/180.0;
-			// initial_q(18)=-32.634014433*M_PI/180.0;
-			// initial_q(19)=22.559812113*M_PI/180.0;
-			
-
 			joint_task->_desired_position = docking_position;
-			// joint_task->_desired_position(0) += 0.001;
-			posori_task_body->_desired_position = sat_pos;
-			// posori_task_body->_desired_position();
+			joint_task->_desired_position(0) = 1.5;
+			joint_task->_desired_position(1) = 0.5;
+			joint_task->_desired_position(2) = 0;
+			joint_task->_desired_position(3) = 0;
+			joint_task->_desired_position(4) = 0;
+			joint_task->_desired_position(5) = 0;
 
-						std::cout << "Docking_position: " << docking_position << "\n";
 
 			N_prec.setIdentity();
-			posori_task_body->updateTaskModel(N_prec); //Operate in Nullspace 
-			N_prec = posori_task_body->_N;
 			joint_task->updateTaskModel(N_prec);
 
+			
+
 			// compute torques
-			posori_task_body->computeTorques(posori_task_torques_body);
 			joint_task->computeTorques(joint_task_torques);
 
-			// std::cout << "Posori torques: " << posori_task_torques_body << "\n";
-			//remove body commands for joint_task_torques
-			// joint_task_torques(0)=0;
-			// joint_task_torques(1)=0;
-			// joint_task_torques(2)=0;
-			// joint_task_torques(3)=0;
-			// joint_task_torques(4)=0;
-			// joint_task_torques(5)=0;
-			posori_task_torques_body(6)=0;
-			posori_task_torques_body(7)=0;
-			posori_task_torques_body(8)=0;
-			posori_task_torques_body(9)=0;
-			posori_task_torques_body(10)=0;
-			posori_task_torques_body(11)=0;
-			posori_task_torques_body(12)=0;
-			posori_task_torques_body(13)=0;
-			posori_task_torques_body(14)=0;
-			posori_task_torques_body(15)=0;
-			posori_task_torques_body(16)=0;
-			posori_task_torques_body(17)=0;
-			posori_task_torques_body(18)=0;
-			posori_task_torques_body(19)=0;
+			command_torques = maxTorque(joint_task_torques);
+			command_torques = joint_task_torques;
+			// std::cout << "command_torques: " << command_torques << "\n";
 
-			// command_torques = posori_task_torques_body + joint_task_torques;
-			command_torques = posori_task_torques_body;
-			// command_torques = joint_task_torques;
-			std::cout << "command_torques: " << command_torques << "\n";
-			// if(controller_counter % 100 == 0) {
-			// 	//cout << J_tasks << endl;
-			// 	//cout << posori_task_left->_current_position << endl << endl;
-			// 	//printJ = false;
+			// if( (robot->_q - q_init_desired).norm() < 0.15 )
+			// {
+			// 	posori_task_body->reInitializeTask(); //
+			// 	posori_task_body->_desired_position += Vector3d(-0.1,0.1,0.1); //
+			// 	posori_task_body->_desired_orientation = AngleAxisd(M_PI/6, Vector3d::UnitX()).toRotationMatrix() * posori_task_body->_desired_orientation; //
+
+			// 	joint_task->reInitializeTask();
+			// 	joint_task->_kp = 0;
+
+
+			// 	state = JOINT_CONTROLLER;
 			// }
-			//for (int i = 0; i < 3; i++) {
-			//	myfile << posori_task_torques_left(i) << ", ";
-			//}			
-
 		}
 
 		// send to redis
