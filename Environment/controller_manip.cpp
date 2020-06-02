@@ -5,8 +5,6 @@
 #include "timer/LoopTimer.h"
 #include "Sai2Primitives.h"
 #include <Sai2Graphics.h>
-#include "force_sensor/ForceSensorSim.h"
-#include "force_sensor/ForceSensorDisplay.h"
 
 #include <GLFW/glfw3.h> //must be loaded after loading opengl/glew
 
@@ -27,8 +25,6 @@ const string world_file = "resources/world.urdf";
 
 #define STRETCH      0
 #define HUG     1
-#define LEFT_STOP	2
-#define RIGHT_STOP	3
 
 int state = STRETCH;
 
@@ -37,6 +33,8 @@ int state = STRETCH;
 std::string JOINT_ANGLES_KEY;
 std::string JOINT_VELOCITIES_KEY;
 std::string JOINT_TORQUES_SENSED_KEY;
+std::string FORCE_SENSED_KEY_LEFT;
+std::string FORCE_SENSED_KEY_RIGHT;
 // - write
 std::string JOINT_TORQUES_COMMANDED_KEY;
 
@@ -48,13 +46,16 @@ std::string ROBOT_GRAVITY_KEY;
 unsigned long long controller_counter = 0;
 
 const bool inertia_regularization = true;
-bool printJ = true;
+bool left_stop = false;
+bool right_stop = false;
 
 int main() {
 
 	JOINT_ANGLES_KEY = "sai2::cs225a::project::sensors::q";
 	JOINT_VELOCITIES_KEY = "sai2::cs225a::project::sensors::dq";
 	JOINT_TORQUES_COMMANDED_KEY = "sai2::cs225a::project::actuators::fgc";
+	FORCE_SENSED_KEY_LEFT = "sai2::cs225a::project::sensors::force_task_sensed_L";
+	FORCE_SENSED_KEY_RIGHT = "sai2::cs225a::project::sensors::force_task_sensed_R";
 
 	// start redis client
 	auto redis_client = RedisClient();
@@ -74,8 +75,7 @@ int main() {
 	// load graphics scene
 	auto graphics = new Sai2Graphics::Sai2Graphics(world_file, true);
 
-	// create force sensor
-
+	Vector3d force_left, moment_left, force_right, moment_right;
 
 	// prepare controller
 	int dof = robot->dof();
@@ -85,11 +85,11 @@ int main() {
 
 	// pose task
 	const string control_link_left = "endEffector_left";
-	const Vector3d control_point_left = Vector3d(0,0,0.1);
+	const Vector3d control_point_left = Vector3d(0,0,0);
 	auto posori_task_left = new Sai2Primitives::PosOriTask(robot, control_link_left, control_point_left);
 
 	const string control_link_right = "endEffector_right";
-	const Vector3d control_point_right = Vector3d(0,0,0.1);
+	const Vector3d control_point_right = Vector3d(0,0,0);
 	auto posori_task_right = new Sai2Primitives::PosOriTask(robot, control_link_right, control_point_right);
 
 	const string control_link_body = "Body";
@@ -184,6 +184,9 @@ int main() {
 		MatrixXd N(dof,dof);
 		robot->nullspaceMatrix(N, J_tasks);
 
+		force_left = redis_client.getEigenMatrixJSON(FORCE_SENSED_KEY_LEFT);
+		force_right = redis_client.getEigenMatrixJSON(FORCE_SENSED_KEY_RIGHT);
+
 		if(state == STRETCH) {
 			posori_task_left->_desired_position = pos_init + ori_init*Vector3d(0, 0.7, 0);
 			posori_task_right->_desired_position = pos_init - ori_init*Vector3d(0, 0.7, 0);
@@ -196,9 +199,18 @@ int main() {
 			}
 		}
 		else {
-
-			posori_task_left->_desired_position = hug_pos_left_init + hug_ori_init*(0.7*Vector3d(cos(M_PI/20*(time - hug_start)), -sin(M_PI/20*(time - hug_start)), 0));
-			posori_task_right->_desired_position = hug_pos_right_init + hug_ori_init*(0.7*Vector3d(cos(M_PI/20*(time - hug_start)), sin(M_PI/20*(time - hug_start)), 0));
+			if(force_left.norm() > 0) {
+				left_stop = true;
+			}
+			if(force_right.norm() > 0) {
+				right_stop = true;
+			}
+			if(!left_stop) {
+				posori_task_left->_desired_position = hug_pos_left_init + hug_ori_init*(0.7*Vector3d(cos(M_PI/20*(time - hug_start)), -sin(M_PI/20*(time - hug_start)), 0));
+			}
+			if(!left_stop) {
+				posori_task_right->_desired_position = hug_pos_right_init + hug_ori_init*(0.7*Vector3d(cos(M_PI/20*(time - hug_start)), sin(M_PI/20*(time - hug_start)), 0));
+			}
 
 		//joint_task->_desired_position = initial_q;
 		//joint_task->_desired_position(0) += 0.001;
@@ -217,14 +229,13 @@ int main() {
 	
 		command_torques = posori_task_torques_left + posori_task_torques_right + joint_task_torques;
 		
-
-
-		if(controller_counter % 100 == 0) {
+		cout << left_stop << endl << endl;
+		
+		//if(controller_counter % 100 == 0) {
 			//cout << J_tasks << endl;
-			cout << posori_task_left->_current_position << endl << endl;
-			cout << posori_task_right->_current_position << endl << endl;
-			//printJ = false;
-		}
+			//cout << posori_task_left->_current_position << endl << endl;
+			//cout << posori_task_right->_current_position << endl << endl;
+		//}
 		//for (int i = 0; i < 3; i++) {
 		//	myfile << posori_task_torques_left(i) << ", ";
 		//}			

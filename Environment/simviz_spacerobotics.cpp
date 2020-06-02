@@ -7,6 +7,8 @@
 #include <dynamics3d.h>
 #include "redis/RedisClient.h"
 #include "timer/LoopTimer.h"
+#include "force_sensor/ForceSensorSim.h"
+#include "force_sensor/ForceSensorDisplay.h"
 
 #include <GLFW/glfw3.h> //must be loaded after loading opengl/glew
 
@@ -36,6 +38,8 @@ const std::string JOINT_ANGLES_KEY  = "sai2::cs225a::project::sensors::q";
 const std::string JOINT_VELOCITIES_KEY = "sai2::cs225a::project::sensors::dq";
 const std::string OBJ_JOINT_ANGLES_KEY  = "cs225a::object::cup::sensors::q";
 const std::string OBJ_JOINT_VELOCITIES_KEY = "cs225a::object::cup::sensors::dq";
+const std::string FORCE_SENSED_KEY_LEFT = "sai2::cs225a::project::sensors::force_task_sensed_L";
+const std::string FORCE_SENSED_KEY_RIGHT = "sai2::cs225a::project::sensors::force_task_sensed_R";
 // - read:
 const std::string JOINT_TORQUES_COMMANDED_KEY  = "sai2::cs225a::project::actuators::fgc";
 
@@ -157,6 +161,7 @@ int main() {
 	// while window is open:
 	while (!glfwWindowShouldClose(window))
 	{
+
 		// update graphics. this automatically waits for the correct amount of time
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
@@ -256,6 +261,12 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 	VectorXd command_torques = VectorXd::Zero(dof);
 	redis_client.setEigenMatrixJSON(JOINT_TORQUES_COMMANDED_KEY, command_torques);
 
+	ForceSensorSim* force_sensor_left = new ForceSensorSim("DiveBot", "endEffector_left", Affine3d::Identity(), robot);
+	//ForceSensorDisplay* force_display_left = new ForceSensorDisplay(force_sensor_left, graphics);
+
+	ForceSensorSim* force_sensor_right = new ForceSensorSim("DiveBot", "endEffector_right", Affine3d::Identity(), robot);
+	//ForceSensorDisplay* force_display_right = new ForceSensorDisplay(force_sensor_right, graphics);
+
 	// create a timer
 	LoopTimer timer;
 	timer.initializeTimer();
@@ -269,10 +280,22 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 
 	// init variables
 	VectorXd g(dof);
+	Vector3d force_left, moment_left, force_right, moment_right;
 
 	fSimulationRunning = true;
 	while (fSimulationRunning) {
 		fTimerDidSleep = timer.waitForNextLoop();
+
+		// update force sensor and display
+		force_sensor_left->update(sim);
+		force_sensor_left->getForce(force_left);
+		force_sensor_left->getMoment(moment_left);
+		//force_display_left->update();
+
+		force_sensor_right->update(sim);
+		force_sensor_right->getForce(force_right);
+		force_sensor_right->getMoment(moment_right);
+		//force_display_right->update();
 
 		// get gravity torques
 		robot->gravityVector(g);
@@ -302,6 +325,9 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 
 		redis_client.setEigenMatrixJSON(OBJ_JOINT_ANGLES_KEY, object->_q);
 		redis_client.setEigenMatrixJSON(OBJ_JOINT_VELOCITIES_KEY, object->_dq);
+		
+		redis_client.setEigenMatrixJSON(FORCE_SENSED_KEY_LEFT, force_left);
+		redis_client.setEigenMatrixJSON(FORCE_SENSED_KEY_RIGHT, force_right);
 
 		//update last time
 		last_time = curr_time;
