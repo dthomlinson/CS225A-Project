@@ -164,6 +164,9 @@ int main() {
 	double hug_start;
 	Vector3d hug_pos_left_init, hug_pos_right_init;
 	Matrix3d hug_ori_init;
+	double r = 0.6;
+	double freq = M_PI/20;
+	double eps = 0.01;
 
 	while (runloop) {
 		// wait for next scheduled loop
@@ -188,9 +191,9 @@ int main() {
 		force_right = redis_client.getEigenMatrixJSON(FORCE_SENSED_KEY_RIGHT);
 
 		if(state == STRETCH) {
-			posori_task_left->_desired_position = pos_init + ori_init*Vector3d(0, 0.7, 0);
-			posori_task_right->_desired_position = pos_init - ori_init*Vector3d(0, 0.7, 0);
-			if( (posori_task_left->_desired_position - posori_task_left->_current_position).norm() < 0.1 && (posori_task_right->_desired_position - posori_task_right->_current_position).norm() < 0.1) {
+			posori_task_left->_desired_position = pos_init + ori_init*Vector3d(0, r, 0);
+			posori_task_right->_desired_position = pos_init - ori_init*Vector3d(0, r, 0);
+			if( (posori_task_left->_desired_position - posori_task_left->_current_position).norm() < eps && (posori_task_right->_desired_position - posori_task_right->_current_position).norm() < eps) {
 				state = HUG;
 				hug_start = time;
 				hug_pos_left_init = posori_task_left->_current_position;
@@ -206,10 +209,10 @@ int main() {
 				right_stop = true;
 			}
 			if(!left_stop) {
-				posori_task_left->_desired_position = hug_pos_left_init + hug_ori_init*(0.7*Vector3d(cos(M_PI/20*(time - hug_start)), -sin(M_PI/20*(time - hug_start)), 0));
+				posori_task_left->_desired_position = hug_pos_left_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), -sin(freq*(time - hug_start)), 0));
 			}
 			if(!left_stop) {
-				posori_task_right->_desired_position = hug_pos_right_init + hug_ori_init*(0.7*Vector3d(cos(M_PI/20*(time - hug_start)), sin(M_PI/20*(time - hug_start)), 0));
+				posori_task_right->_desired_position = hug_pos_right_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), sin(freq*(time - hug_start)), 0));
 			}
 
 		//joint_task->_desired_position = initial_q;
@@ -229,13 +232,13 @@ int main() {
 	
 		command_torques = posori_task_torques_left + posori_task_torques_right + joint_task_torques;
 		
-		cout << left_stop << endl << endl;
+		//cout << left_stop << endl << endl;
 		
-		//if(controller_counter % 100 == 0) {
+		if(controller_counter % 100 == 0) {
 			//cout << J_tasks << endl;
-			//cout << posori_task_left->_current_position << endl << endl;
-			//cout << posori_task_right->_current_position << endl << endl;
-		//}
+			cout << posori_task_left->_current_position << endl << endl;
+			cout << posori_task_right->_current_position << endl << endl;
+		}
 		//for (int i = 0; i < 3; i++) {
 		//	myfile << posori_task_torques_left(i) << ", ";
 		//}			
