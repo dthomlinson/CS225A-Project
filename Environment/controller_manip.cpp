@@ -21,7 +21,6 @@ using namespace std;
 using namespace Eigen;
 
 const string robot_file = "./resources/Divebot_Hybrid.urdf";
-const string world_file = "resources/world.urdf";
 
 #define STRETCH      0
 #define HUG     1
@@ -72,9 +71,6 @@ int main() {
 	robot->_q = redis_client.getEigenMatrixJSON(JOINT_ANGLES_KEY);
 	VectorXd initial_q = robot->_q;
 	robot->updateModel();
-
-	// load graphics scene
-	auto graphics = new Sai2Graphics::Sai2Graphics(world_file, true);
 
 	Vector3d force_left, moment_left, force_right, moment_right;
 

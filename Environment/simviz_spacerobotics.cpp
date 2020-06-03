@@ -417,9 +417,11 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 		// add position offset in world.urdf file since positionInWorld() doesn't account for this 
 		obj_pos += obj_offset;
 		camera_pos += robot_offset;  // camera position/orientation is set to the panda's last link
-
+		// matrix3d rotmat;
+		// // rotmat = //new x to b z
+		// camera_ori=rotmat*camera_ori
 		// object camera detect 
-		detect = cameraFOV(obj_pos, camera_pos, camera_ori, 1.0, M_PI/6);
+		detect = cameraFOV(obj_pos, camera_pos, camera_ori, 5.0, M_PI/6);
 		if (detect == true) {
 			obj_pos(0) += dist(generator);  // add white noise 
 			obj_pos(1) += dist(generator);
