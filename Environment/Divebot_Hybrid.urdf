@@ -186,7 +186,7 @@ LINKS: LEFT ARM
       <geometry>
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/endEffectorWPalm_left.obj"/> -->
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2.obj"/> -->
-        <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_small.obj"/> -->
+        <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_small.obj"/>
       </geometry>
     </collision>
   </link>
@@ -302,7 +302,7 @@ LINKS: RIGHT ARM
       <geometry>
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/endEffectorWPalm_right.obj"/> -->
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2.obj"/> -->
-        <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_small.obj"/> -->
+        <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_small.obj"/>
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_open.obj"/> -->
       </geometry>
     </collision>

@@ -171,12 +171,12 @@ int main() {
 		{
 			// update task model and set hierarchy
 			joint_task->_desired_position = docking_position;
-			joint_task->_desired_position(0) = 1.5;
-			joint_task->_desired_position(1) = 0.5;
-			joint_task->_desired_position(2) = 0;
-			joint_task->_desired_position(3) = 0;
-			joint_task->_desired_position(4) = 0;
-			joint_task->_desired_position(5) = 0;
+			joint_task->_desired_position(0) = 4.0; //x
+			joint_task->_desired_position(1) = 0.0; //y
+			joint_task->_desired_position(2) = 0.0; //z
+			joint_task->_desired_position(3) = 0.0; //yaw
+			joint_task->_desired_position(4) = 0.0; //pitch
+			joint_task->_desired_position(5) = 0.0; //roll weird
 
 
 			N_prec.setIdentity();
@@ -189,7 +189,7 @@ int main() {
 
 			command_torques = maxTorque(joint_task_torques);
 			command_torques = joint_task_torques;
-			// std::cout << "command_torques: " << command_torques << "\n";
+			std::cout << "command_torques: " << command_torques << "\n";
 
 			// if( (robot->_q - q_init_desired).norm() < 0.15 )
 			// {

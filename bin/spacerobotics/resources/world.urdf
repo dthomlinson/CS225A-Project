@@ -4,17 +4,18 @@
 
 	<robot name="oceanone">
 		<model dir="./resources" path="Divebot_Hybrid.urdf" name="oceanone" />
-		<origin xyz="-1.0 0.5 0" rpy="0 0 180" />
+		<!-- <origin xyz="-.5 0 0" rpy="0 0 -1.571" /> -->
+		<origin xyz="-.5 4.0 0" rpy="0 0 -1.571" />
 	</robot>
-
+	
 	<!-- <robot name="Divebot">
 		<model dir="./resources" path="Divebot_Hybrid.urdf" name="panda_collision" />
-		<origin xyz="0.0 0.3 0.0" rpy="0 0 0" />
+		<origin xyz="1.0 0.5 0.0" rpy="0 0 0" />
 	</robot> -->
 
 	<robot name="satellite">
 		<model dir="./resources" path="satellite.urdf" name="satellite" />
-		<origin xyz="0 -0.35 0.593" rpy="0 0 0" />
+		<origin xyz="-0.6 -1.8 -0.4" rpy="0 0 0" />
 	</robot>
 
 	<light name="light1" type="directional">
@@ -28,9 +29,9 @@
 	</light>
 
 	<camera name="camera_fixed">
-		<position xyz="2.0 2.5 1" />
-		<vertical xyz="0.0 0.0 1.0" />
-		<lookat xyz="0.0 -0.5 0" />
+		<position xyz="2 2 5" />
+		<vertical xyz="0.0 0.0 5.0" />
+		<lookat xyz="0.0 0 0" />
 	</camera>
 
 </world>

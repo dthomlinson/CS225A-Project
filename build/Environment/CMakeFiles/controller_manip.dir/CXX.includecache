@@ -15,6 +15,10 @@ timer/LoopTimer.h
 /home/manuel/SAI/apps/CS225A-Project/Environment/timer/LoopTimer.h
 Sai2Primitives.h
 /home/manuel/SAI/apps/CS225A-Project/Environment/Sai2Primitives.h
+Sai2Graphics.h
+-
+GLFW/glfw3.h
+-
 fstream
 -
 iostream
@@ -1295,6 +1299,18 @@ time.h
 -
 mach/mach_time.h
 -
+
+/home/manuel/SAI/core/sai2-graphics/src/Sai2Graphics.h
+chai3d.h
+-
+Sai2Model.h
+/home/manuel/SAI/core/sai2-graphics/src/Sai2Model.h
+chai_extension/CRobotLink.h
+/home/manuel/SAI/core/sai2-graphics/src/chai_extension/CRobotLink.h
+
+/home/manuel/SAI/core/sai2-graphics/src/chai_extension/CRobotLink.h
+chai3d.h
+/home/manuel/SAI/core/sai2-graphics/src/chai_extension/chai3d.h
 
 /home/manuel/SAI/core/sai2-model/rbdl/build/include/rbdl/rbdl_config.h
 

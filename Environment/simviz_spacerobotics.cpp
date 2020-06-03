@@ -7,6 +7,8 @@
 #include <dynamics3d.h>
 #include "redis/RedisClient.h"
 #include "timer/LoopTimer.h"
+#include "force_sensor/ForceSensorSim.h"
+#include "force_sensor/ForceSensorDisplay.h"
 
 #include <GLFW/glfw3.h> //must be loaded after loading opengl/glew
 
@@ -14,6 +16,9 @@
 #include <random>
 
 #include <signal.h>
+
+#define RAD(deg) ((double)(deg) * M_PI / 180.0)
+
 bool fSimulationRunning = false;
 void sighandler(int){fSimulationRunning = false;}
 
@@ -50,6 +55,10 @@ const std::string CAMERA_OBJ_POS_KEY = "sai2::cs225a::camera::obj_pos";
 	Vector3d camera_pos, obj_pos, rob_pos;
 	Matrix3d camera_ori;
 
+// const std::string OBJ_JOINT_ANGLES_KEY  = "cs225a::object::cup::sensors::q";
+// const std::string OBJ_JOINT_VELOCITIES_KEY = "cs225a::object::cup::sensors::dq";
+const std::string FORCE_SENSED_KEY_LEFT = "sai2::cs225a::project::sensors::force_task_sensed_L";
+const std::string FORCE_SENSED_KEY_RIGHT = "sai2::cs225a::project::sensors::force_task_sensed_R";
 // - read:
 const std::string JOINT_TORQUES_COMMANDED_KEY  = "sai2::cs225a::project::actuators::fgc";
 
@@ -103,13 +112,13 @@ int main() {
 
 	// load robots
 	auto robot = new Sai2Model::Sai2Model(robot_file, false);
-	robot->_q << -0.8, 0, 0, RAD(0), RAD(0), RAD(0), RAD(-22.530476674), RAD(-38.938842011), RAD(-9.5874173775), RAD(86.55788003), RAD(35.068683992), RAD(-32.703571509), RAD(-22.68013325), RAD(-22.451580385), RAD(38.858341441), RAD(9.6591516935), RAD(86.49771946), RAD(-35.222695047), RAD(-32.634014433), RAD(22.559812113);
+	robot->_q << 0.0, 0, 0, RAD(0), RAD(0), RAD(0), RAD(-22.530476674), RAD(-38.938842011), RAD(-9.5874173775), RAD(86.55788003), RAD(35.068683992), RAD(-32.703571509), RAD(-22.68013325), RAD(-22.451580385), RAD(38.858341441), RAD(9.6591516935), RAD(86.49771946), RAD(-35.222695047), RAD(-32.634014433), RAD(22.559812113);
 	robot->updateModel();
 
 	// load robot objects
 	auto object = new Sai2Model::Sai2Model(obj_file, false);
-	// object->_q(0) = 0.60;
-	// object->_q(1) = -0.35;
+	//object->_q(1) = 0.6;
+	//object->_q(1) = -0.35;
 	object->updateModel();
 
 	// load simulation world
@@ -179,6 +188,7 @@ int main() {
 	// while window is open:
 	while (!glfwWindowShouldClose(window)&& fSimulationRunning)
 	{
+
 		// update graphics. this automatically waits for the correct amount of time
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
@@ -305,6 +315,12 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 	VectorXd command_torques = VectorXd::Zero(dof);
 	redis_client.setEigenMatrixJSON(JOINT_TORQUES_COMMANDED_KEY, command_torques);
 
+	ForceSensorSim* force_sensor_left = new ForceSensorSim("DiveBot", "endEffector_left", Affine3d::Identity(), robot);
+	//ForceSensorDisplay* force_display_left = new ForceSensorDisplay(force_sensor_left, graphics);
+
+	ForceSensorSim* force_sensor_right = new ForceSensorSim("DiveBot", "endEffector_right", Affine3d::Identity(), robot);
+	//ForceSensorDisplay* force_display_right = new ForceSensorDisplay(force_sensor_right, graphics);
+
 	// create a timer
 	LoopTimer timer;
 	timer.initializeTimer();
@@ -345,10 +361,22 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
     std::default_random_engine generator;
     std::normal_distribution<double> dist(mean, stddev);
 
+	Vector3d force_left, moment_left, force_right, moment_right;
 
 	fSimulationRunning = true;
 	while (fSimulationRunning) {
 		fTimerDidSleep = timer.waitForNextLoop();
+
+		// update force sensor and display
+		force_sensor_left->update(sim);
+		force_sensor_left->getForce(force_left);
+		force_sensor_left->getMoment(moment_left);
+		//force_display_left->update();
+
+		force_sensor_right->update(sim);
+		force_sensor_right->getForce(force_right);
+		force_sensor_right->getMoment(moment_right);
+		//force_display_right->update();
 
 		// get gravity torques
 		robot->gravityVector(g);
@@ -423,6 +451,9 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 		redis_data.at(7) = std::pair<string, string>(CAMERA_ORI_KEY, redis_client.encodeEigenMatrixJSON(camera_ori));
 
 		redis_client.pipeset(redis_data);
+		
+		redis_client.setEigenMatrixJSON(FORCE_SENSED_KEY_LEFT, force_left);
+		redis_client.setEigenMatrixJSON(FORCE_SENSED_KEY_RIGHT, force_right);
 
 		//update last time
 		last_time = curr_time;
