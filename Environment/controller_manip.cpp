@@ -25,6 +25,7 @@ const string world_file = "resources/world.urdf";
 
 #define STRETCH      0
 #define HUG     1
+#define GRASP	2
 
 int state = STRETCH;
 
@@ -162,11 +163,13 @@ int main() {
 	posori_task_left->updateTaskModel(N_prec);
 	posori_task_right->updateTaskModel(N_prec);
 	double hug_start;
-	Vector3d hug_pos_left_init, hug_pos_right_init;
+	Vector3d hug_pos_left_init, hug_pos_right_init, grasp_pos_left_init, grasp_pos_right_init;
 	Matrix3d hug_ori_init;
 	double r = 0.6;
 	double freq = M_PI/20;
 	double eps = 0.01;
+	double t_stop = 20;
+	double grasp_des_pos = 0.03;
 
 	while (runloop) {
 		// wait for next scheduled loop
@@ -201,22 +204,33 @@ int main() {
 				hug_ori_init = posori_task_body->_current_orientation;
 			}
 		}
-		else {
-			if(force_left.norm() > 0) {
+		else if(state == HUG){
+			if(force_left.norm() > 0 || time > t_stop) {
 				left_stop = true;
+				posori_task_left->_desired_position = posori_task_left->_current_position;
+				grasp_pos_left_init = posori_task_left->_current_position;
 			}
-			if(force_right.norm() > 0) {
+			if(force_right.norm() > 0 || time > t_stop) {
 				right_stop = true;
+				posori_task_right->_desired_position = posori_task_right->_current_position;
+				grasp_pos_right_init = posori_task_right->_current_position;
 			}
 			if(!left_stop) {
 				posori_task_left->_desired_position = hug_pos_left_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), -sin(freq*(time - hug_start)), 0));
 			}
-			if(!left_stop) {
+			if(!right_stop) {
 				posori_task_right->_desired_position = hug_pos_right_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), sin(freq*(time - hug_start)), 0));
+			}
+			if(left_stop && right_stop) {
+				state = GRASP;
 			}
 
 		//joint_task->_desired_position = initial_q;
 		//joint_task->_desired_position(0) += 0.001;
+		}
+		else {
+			posori_task_left->_desired_position = grasp_pos_left_init + hug_ori_init*(Vector3d(0,-grasp_des_pos,0));
+			posori_task_right->_desired_position = grasp_pos_right_init + hug_ori_init*(Vector3d(0,grasp_des_pos,0));
 		}
 
 		N_prec.setIdentity();
