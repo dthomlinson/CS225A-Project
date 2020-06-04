@@ -128,13 +128,13 @@ int main() {
 
     // set co-efficient of restition to zero for force control
     // see issue: https://github.com/manips-sai/sai2-simulation/issues/1
-    sim->setCollisionRestitution(0.3);
+    sim->setCollisionRestitution(0.01);
 
     // set co-efficient of friction also to zero for now as this causes jitter
     // sim->setCoeffFrictionStatic(0.0);
     // sim->setCoeffFrictionDynamic(0.0);
-    sim->setCoeffFrictionStatic(0.5);
-    sim->setCoeffFrictionDynamic(0.5);
+    sim->setCoeffFrictionStatic(1.5);
+    sim->setCoeffFrictionDynamic(1.5);
 
 	/*------- Set up visualization -------*/
 	// set up error callback
@@ -326,7 +326,7 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 	timer.initializeTimer();
 	timer.setLoopFrequency(1000); //changes the robot rendering
 
-	double time_slowdown_factor = 6.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
+	double time_slowdown_factor = 16.0; // adjust to higher value (i.e. 2) to slow down simulation by this factor relative to real time (for slower machines)
 	
 	bool fTimerDidSleep = true;
 	double start_time = timer.elapsedTime()/ time_slowdown_factor;//secs
@@ -417,9 +417,13 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 		// add position offset in world.urdf file since positionInWorld() doesn't account for this 
 		obj_pos += obj_offset;
 		camera_pos += robot_offset;  // camera position/orientation is set to the panda's last link
-		// matrix3d rotmat;
-		// // rotmat = //new x to b z
-		// camera_ori=rotmat*camera_ori
+		MatrixXd rotmat = MatrixXd::Zero(3,3);
+		rotmat(1,1)=1;
+		rotmat(0,0)=cos(RAD(-90));
+		rotmat(0,2)=sin(RAD(-90));
+		rotmat(2,0)=-sin(RAD(-90));
+		rotmat(2,2)=cos(RAD(-90));
+		camera_ori=rotmat*camera_ori;
 		// object camera detect 
 		detect = cameraFOV(obj_pos, camera_pos, camera_ori, 5.0, M_PI/6);
 		if (detect == true) {

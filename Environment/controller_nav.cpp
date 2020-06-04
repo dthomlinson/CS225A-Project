@@ -171,8 +171,8 @@ int main() {
 		{
 			// update task model and set hierarchy
 			joint_task->_desired_position = docking_position;
-			joint_task->_desired_position(0) = 4.0; //x
-			joint_task->_desired_position(1) = 0.0; //y
+			joint_task->_desired_position(0) = 3.15; //x
+			joint_task->_desired_position(1) = -0.17; //y
 			joint_task->_desired_position(2) = 0.0; //z
 			joint_task->_desired_position(3) = 0.0; //yaw
 			joint_task->_desired_position(4) = 0.0; //pitch

@@ -4,7 +4,7 @@
 
 	<robot name="oceanone">
 		<model dir="./resources" path="Divebot_Hybrid.urdf" name="oceanone" />
-		<origin xyz="-1.0 0.5 0" rpy="0 0 -1.571" />
+		<origin xyz="-0.5 -4.0 0.0" rpy="0 0 -1.571" />
 	</robot>
 
 	<!-- <robot name="Divebot">

@@ -186,7 +186,7 @@ LINKS: LEFT ARM
       <geometry>
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/endEffectorWPalm_left.obj"/> -->
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2.obj"/> -->
-        <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_small.obj"/> -->
+        <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_small.obj"/>
       </geometry>
     </collision>
   </link>
@@ -302,7 +302,7 @@ LINKS: RIGHT ARM
       <geometry>
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/endEffectorWPalm_right.obj"/> -->
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2.obj"/> -->
-        <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_small.obj"/> -->
+        <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_small.obj"/>
         <!-- <mesh filename="../../../model/ocean1/ocean1_graphics/HandO2_open.obj"/> -->
       </geometry>
     </collision>
@@ -311,8 +311,8 @@ LINKS: RIGHT ARM
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~
 JOINTS: BODY
 ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-  <joint name="PrisX_Joint" type="prismatic">
+<!-- joint 1 -->
+  <joint name="PrisX_Joint" type="prismatic"> 
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
     <parent link="ground" />
     <child link="PrisX" />
@@ -322,7 +322,7 @@ JOINTS: BODY
     <!-- TODO: change lower, upper, effort, and velocity limits -->
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 2 -->
   <joint name="PrisY_Joint" type="prismatic">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
     <parent link="PrisX" />
@@ -331,7 +331,7 @@ JOINTS: BODY
     <calibration rising="1.94773" />
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 3 -->
   <joint name="PrisZ_Joint" type="prismatic">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
     <parent link="PrisY" />
@@ -340,7 +340,7 @@ JOINTS: BODY
     <calibration rising="0.703213" />
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 4 -->
   <joint name="RotZ_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
     <parent link="PrisZ" />
@@ -349,7 +349,7 @@ JOINTS: BODY
     <calibration falling="-185.3157504" />
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 5 -->
   <joint name="RotY_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
     <parent link="RotZ" />
@@ -358,7 +358,7 @@ JOINTS: BODY
     <calibration falling="0.0"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 6 -->
   <joint name="RotX_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
     <parent link="RotY" />
@@ -371,7 +371,7 @@ JOINTS: BODY
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~
 JOINTS: LEFT ARM
 ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
+<!-- joint 7 -->
   <joint name="shoulderT_left_Joint" type="revolute">
     <origin rpy="-3.1415927 0.0 -2.3561935" xyz="0.5768673 0.194584 -0.1893698"/>
     <parent link="Body" />
@@ -380,7 +380,7 @@ JOINTS: LEFT ARM
     <calibration falling="-22.530476674"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 8 -->
   <joint name="shoulderL_left_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <parent link="shoulderT_left" />
@@ -389,7 +389,7 @@ JOINTS: LEFT ARM
     <calibration falling="-38.938842011"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 9 -->
   <joint name="upperArm_left_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.281541"/>
     <parent link="shoulderL_left" />
@@ -398,7 +398,7 @@ JOINTS: LEFT ARM
     <calibration falling="-9.5874173775"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 10 -->
   <joint name="elbow_left_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <parent link="upperArm_left" />
@@ -407,7 +407,7 @@ JOINTS: LEFT ARM
     <calibration falling="86.55788003"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 11 -->
   <joint name="lowerArm_left_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.331339"/>
     <parent link="elbow_left" />
@@ -416,7 +416,7 @@ JOINTS: LEFT ARM
     <calibration falling="35.068683992"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 12 -->
   <joint name="wristDiff_left_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <parent link="lowerArm_left" />
@@ -425,7 +425,7 @@ JOINTS: LEFT ARM
     <calibration falling="-32.703571509"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 13 -->
   <joint name="endEffector_left_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <parent link="wristDiff_left" />
@@ -438,7 +438,7 @@ JOINTS: LEFT ARM
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~
 JOINTS: RIGHT ARM
 ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
+<!-- joint 14 -->
   <joint name="shoulderT_right_Joint" type="revolute">
     <origin rpy="3.1415927 0.0 -0.7853991" xyz="0.5768673 -0.194584 -0.1893698"/>
     <parent link="Body" />
@@ -447,7 +447,7 @@ JOINTS: RIGHT ARM
     <calibration falling="-22.451580385"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 15 -->
   <joint name="shoulderL_right_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <parent link="shoulderT_right" />
@@ -456,7 +456,7 @@ JOINTS: RIGHT ARM
     <calibration falling="38.858341441"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 16 -->
   <joint name="upperArm_right_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.281541"/>
     <parent link="shoulderL_right" />
@@ -465,7 +465,7 @@ JOINTS: RIGHT ARM
     <calibration falling="9.6591516935"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 17 -->
   <joint name="elbow_right_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <parent link="upperArm_right" />
@@ -474,7 +474,7 @@ JOINTS: RIGHT ARM
     <calibration falling="86.49771946"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 18 -->
   <joint name="lowerArm_right_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.331339"/>
     <parent link="elbow_right" />
@@ -483,7 +483,7 @@ JOINTS: RIGHT ARM
     <calibration falling="-35.222695047"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 19 -->
   <joint name="wristDiff_right_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <parent link="lowerArm_right" />
@@ -492,7 +492,7 @@ JOINTS: RIGHT ARM
     <calibration falling="-32.634014433"/>
     <limit effort="100.0" velocity="3.0"/>
   </joint>
-
+<!-- joint 20 -->
   <joint name="endEffector_right_Joint" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <parent link="wristDiff_right" />
