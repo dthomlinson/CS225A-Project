@@ -117,7 +117,7 @@ int main() {
 
 	// load robot objects
 	auto object = new Sai2Model::Sai2Model(obj_file, false);
-	object->_dq(0) = 0.0; //satellite motion
+	object->_dq(1) = -0.5; //satellite motion
 	//object->_q(1) = -0.35;
 	object->updateModel();
 
