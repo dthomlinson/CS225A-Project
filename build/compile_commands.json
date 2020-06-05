@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/manuel/SAI/apps/CS225A-Project/build/Environment",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DLINUX -DUSING_OTG -D_LINUX -I/usr/include/eigen3 -I/home/manuel/SAI/core/chai3d/src -I/home/manuel/SAI/core/chai3d/external/glew/include -I/home/manuel/SAI/core/sai2-simulation/src -I/home/manuel/SAI/core/sai2-model/src -I/home/manuel/SAI/core/sai2-model/rbdl/include -I/home/manuel/SAI/core/sai2-model/rbdl/build/include -I/home/manuel/SAI/core/sai2-graphics/src -I/home/manuel/SAI/core/sai2-common/src -I/usr/include/jsoncpp -I/home/manuel/SAI/core/sai2-urdfreader/src -I/home/manuel/SAI/core/sai2-urdfreader/src/urdf/urdfdom/urdf_parser/include -I/home/manuel/SAI/core/sai2-primitives/src -I/home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/include  -std=c++11 -I/usr/include -I/usr/local/include -O3 -DNDEBUG    -DBUILD64 -o CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o -c /home/manuel/SAI/apps/CS225A-Project/Environment/simviz_spacerobotics.cpp",
+  "file": "/home/manuel/SAI/apps/CS225A-Project/Environment/simviz_spacerobotics.cpp"
+},
+{
+  "directory": "/home/manuel/SAI/apps/CS225A-Project/build/Environment",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DLINUX -DUSING_OTG -D_LINUX -I/usr/include/eigen3 -I/home/manuel/SAI/core/chai3d/src -I/home/manuel/SAI/core/chai3d/external/glew/include -I/home/manuel/SAI/core/sai2-simulation/src -I/home/manuel/SAI/core/sai2-model/src -I/home/manuel/SAI/core/sai2-model/rbdl/include -I/home/manuel/SAI/core/sai2-model/rbdl/build/include -I/home/manuel/SAI/core/sai2-graphics/src -I/home/manuel/SAI/core/sai2-common/src -I/usr/include/jsoncpp -I/home/manuel/SAI/core/sai2-urdfreader/src -I/home/manuel/SAI/core/sai2-urdfreader/src/urdf/urdfdom/urdf_parser/include -I/home/manuel/SAI/core/sai2-primitives/src -I/home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/include  -std=c++11 -I/usr/include -I/usr/local/include -O3 -DNDEBUG    -DBUILD64 -o CMakeFiles/controller_manip.dir/controller_manip.cpp.o -c /home/manuel/SAI/apps/CS225A-Project/Environment/controller_manip.cpp",
+  "file": "/home/manuel/SAI/apps/CS225A-Project/Environment/controller_manip.cpp"
+},
+{
+  "directory": "/home/manuel/SAI/apps/CS225A-Project/build/Environment",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DLINUX -DUSING_OTG -D_LINUX -I/usr/include/eigen3 -I/home/manuel/SAI/core/chai3d/src -I/home/manuel/SAI/core/chai3d/external/glew/include -I/home/manuel/SAI/core/sai2-simulation/src -I/home/manuel/SAI/core/sai2-model/src -I/home/manuel/SAI/core/sai2-model/rbdl/include -I/home/manuel/SAI/core/sai2-model/rbdl/build/include -I/home/manuel/SAI/core/sai2-graphics/src -I/home/manuel/SAI/core/sai2-common/src -I/usr/include/jsoncpp -I/home/manuel/SAI/core/sai2-urdfreader/src -I/home/manuel/SAI/core/sai2-urdfreader/src/urdf/urdfdom/urdf_parser/include -I/home/manuel/SAI/core/sai2-primitives/src -I/home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/include  -std=c++11 -I/usr/include -I/usr/local/include -O3 -DNDEBUG    -DBUILD64 -o CMakeFiles/controller_final.dir/controller_final.cpp.o -c /home/manuel/SAI/apps/CS225A-Project/Environment/controller_final.cpp",
+  "file": "/home/manuel/SAI/apps/CS225A-Project/Environment/controller_final.cpp"
+},
+{
+  "directory": "/home/manuel/SAI/apps/CS225A-Project/build/Environment",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DLINUX -DUSING_OTG -D_LINUX -I/usr/include/eigen3 -I/home/manuel/SAI/core/chai3d/src -I/home/manuel/SAI/core/chai3d/external/glew/include -I/home/manuel/SAI/core/sai2-simulation/src -I/home/manuel/SAI/core/sai2-model/src -I/home/manuel/SAI/core/sai2-model/rbdl/include -I/home/manuel/SAI/core/sai2-model/rbdl/build/include -I/home/manuel/SAI/core/sai2-graphics/src -I/home/manuel/SAI/core/sai2-common/src -I/usr/include/jsoncpp -I/home/manuel/SAI/core/sai2-urdfreader/src -I/home/manuel/SAI/core/sai2-urdfreader/src/urdf/urdfdom/urdf_parser/include -I/home/manuel/SAI/core/sai2-primitives/src -I/home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/include  -std=c++11 -I/usr/include -I/usr/local/include -O3 -DNDEBUG    -DBUILD64 -o CMakeFiles/controller_sat.dir/controller_sat.cpp.o -c /home/manuel/SAI/apps/CS225A-Project/Environment/controller_sat.cpp",
+  "file": "/home/manuel/SAI/apps/CS225A-Project/Environment/controller_sat.cpp"
+},
+{
+  "directory": "/home/manuel/SAI/apps/CS225A-Project/build/Environment",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DLINUX -DUSING_OTG -D_LINUX -I/usr/include/eigen3 -I/home/manuel/SAI/core/chai3d/src -I/home/manuel/SAI/core/chai3d/external/glew/include -I/home/manuel/SAI/core/sai2-simulation/src -I/home/manuel/SAI/core/sai2-model/src -I/home/manuel/SAI/core/sai2-model/rbdl/include -I/home/manuel/SAI/core/sai2-model/rbdl/build/include -I/home/manuel/SAI/core/sai2-graphics/src -I/home/manuel/SAI/core/sai2-common/src -I/usr/include/jsoncpp -I/home/manuel/SAI/core/sai2-urdfreader/src -I/home/manuel/SAI/core/sai2-urdfreader/src/urdf/urdfdom/urdf_parser/include -I/home/manuel/SAI/core/sai2-primitives/src -I/home/manuel/SAI/core/sai2-primitives/../external/ReflexxesTypeII/include  -std=c++11 -I/usr/include -I/usr/local/include -O3 -DNDEBUG    -DBUILD64 -o CMakeFiles/controller_nav.dir/controller_nav.cpp.o -c /home/manuel/SAI/apps/CS225A-Project/Environment/controller_nav.cpp",
+  "file": "/home/manuel/SAI/apps/CS225A-Project/Environment/controller_nav.cpp"
+}
+]

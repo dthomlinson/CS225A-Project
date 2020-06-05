@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named simviz_spacerobotics
+
+# Build rule for target.
+simviz_spacerobotics: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_spacerobotics
+.PHONY : simviz_spacerobotics
+
+# fast build rule for target.
+simviz_spacerobotics/fast:
+	$(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/build
+.PHONY : simviz_spacerobotics/fast
+
+#=============================================================================
 # Target rules for targets named controller_manip
 
 # Build rule for target.
@@ -124,17 +137,30 @@ controller_manip/fast:
 .PHONY : controller_manip/fast
 
 #=============================================================================
-# Target rules for targets named simviz_spacerobotics
+# Target rules for targets named controller_final
 
 # Build rule for target.
-simviz_spacerobotics: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 simviz_spacerobotics
-.PHONY : simviz_spacerobotics
+controller_final: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 controller_final
+.PHONY : controller_final
 
 # fast build rule for target.
-simviz_spacerobotics/fast:
-	$(MAKE) -f Environment/CMakeFiles/simviz_spacerobotics.dir/build.make Environment/CMakeFiles/simviz_spacerobotics.dir/build
-.PHONY : simviz_spacerobotics/fast
+controller_final/fast:
+	$(MAKE) -f Environment/CMakeFiles/controller_final.dir/build.make Environment/CMakeFiles/controller_final.dir/build
+.PHONY : controller_final/fast
+
+#=============================================================================
+# Target rules for targets named controller_sat
+
+# Build rule for target.
+controller_sat: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 controller_sat
+.PHONY : controller_sat
+
+# fast build rule for target.
+controller_sat/fast:
+	$(MAKE) -f Environment/CMakeFiles/controller_sat.dir/build.make Environment/CMakeFiles/controller_sat.dir/build
+.PHONY : controller_sat/fast
 
 #=============================================================================
 # Target rules for targets named controller_nav
@@ -157,8 +183,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... controller_manip"
 	@echo "... simviz_spacerobotics"
+	@echo "... controller_manip"
+	@echo "... controller_final"
+	@echo "... controller_sat"
 	@echo "... controller_nav"
 .PHONY : help
 

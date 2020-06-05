@@ -60,15 +60,15 @@ include Environment/CMakeFiles/simviz_spacerobotics.dir/flags.make
 Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o: Environment/CMakeFiles/simviz_spacerobotics.dir/flags.make
 Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o: ../Environment/simviz_spacerobotics.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o"
-	cd /home/manuel/SAI/apps/CS225A-Project/build/Environment && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o -c /home/manuel/SAI/apps/CS225A-Project/Environment/simviz_spacerobotics.cpp
+	cd /home/manuel/SAI/apps/CS225A-Project/build/Environment && /usr/bin/x86_64-linux-gnu-g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o -c /home/manuel/SAI/apps/CS225A-Project/Environment/simviz_spacerobotics.cpp
 
 Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.i"
-	cd /home/manuel/SAI/apps/CS225A-Project/build/Environment && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/manuel/SAI/apps/CS225A-Project/Environment/simviz_spacerobotics.cpp > CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.i
+	cd /home/manuel/SAI/apps/CS225A-Project/build/Environment && /usr/bin/x86_64-linux-gnu-g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/manuel/SAI/apps/CS225A-Project/Environment/simviz_spacerobotics.cpp > CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.i
 
 Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.s"
-	cd /home/manuel/SAI/apps/CS225A-Project/build/Environment && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/manuel/SAI/apps/CS225A-Project/Environment/simviz_spacerobotics.cpp -o CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.s
+	cd /home/manuel/SAI/apps/CS225A-Project/build/Environment && /usr/bin/x86_64-linux-gnu-g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/manuel/SAI/apps/CS225A-Project/Environment/simviz_spacerobotics.cpp -o CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.s
 
 Environment/CMakeFiles/simviz_spacerobotics.dir/simviz_spacerobotics.cpp.o.requires:
 

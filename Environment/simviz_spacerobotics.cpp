@@ -29,7 +29,7 @@ using namespace Eigen;
 const string world_file = "./resources/world.urdf";
 const string robot_file = "./resources/Divebot_Hybrid.urdf";
 const string obj_file = "./resources/satellite.urdf";
-const string robot_name = "oceanone";
+const string robot_name = "Divebot";
 const string obj_name = "satellite"; 
 const string camera_name = "camera_fixed";
 

@@ -1,7 +1,9 @@
 /home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles/rebuild_cache.dir
 /home/manuel/SAI/apps/CS225A-Project/build/CMakeFiles/edit_cache.dir
-/home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/edit_cache.dir
-/home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/controller_manip.dir
 /home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/rebuild_cache.dir
 /home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/simviz_spacerobotics.dir
+/home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/controller_manip.dir
+/home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/controller_final.dir
+/home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/controller_sat.dir
 /home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/controller_nav.dir
+/home/manuel/SAI/apps/CS225A-Project/build/Environment/CMakeFiles/edit_cache.dir
