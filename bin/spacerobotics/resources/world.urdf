@@ -27,6 +27,18 @@
 		<lookat xyz="0.0 0.0 0.0" />
 	</light>
 
+	<!-- <static_object name="Space"> -->
+		<!-- <origin xyz="0.0 0.0 0.0" rpy="0 0 0" /> -->
+	    <!-- <visual> -->
+	    	<!-- <origin xyz="0.0 0.0 0.0" rpy="0 0 0" /> -->
+	        <!-- <origin xyz="0.0 0.0 -0.0001" rpy="0 0 0" /> -->
+	        <!-- <geometry> -->
+	            <!-- <mesh filename="./resources/../../../model/test_objects/meshes/visual/untitled.obj" scale="1.0 1.0 1.0"/> -->
+	            <!-- <box size="100 100 0.0002" /> -->
+	        <!-- </geometry> -->
+	    <!-- </visual>
+	</static_object> -->
+
 	<camera name="camera_fixed">
 		<position xyz="2 2 5" />
 		<vertical xyz="0.0 0.0 5.0" />

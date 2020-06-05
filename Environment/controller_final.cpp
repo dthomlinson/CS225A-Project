@@ -4,9 +4,6 @@
 #include "redis/RedisClient.h"
 #include "timer/LoopTimer.h"
 #include "Sai2Primitives.h"
-#include <Sai2Graphics.h>
-
-#include <GLFW/glfw3.h> //must be loaded after loading opengl/glew
 
 #include <fstream>
 #include <iostream>
@@ -23,8 +20,9 @@ using namespace Eigen;
 const string robot_file = "./resources/Divebot_Hybrid.urdf";
 
 #define NAVIGATOR     0
-#define STRETCH      1
-#define HUG          2
+#define STRETCH       1
+#define HUG           2
+#define GRASP	      3
 
 int state = NAVIGATOR;
 
@@ -33,8 +31,12 @@ int state = NAVIGATOR;
 std::string JOINT_ANGLES_KEY;
 std::string JOINT_VELOCITIES_KEY;
 std::string JOINT_TORQUES_SENSED_KEY;
-std::string FORCE_SENSED_KEY_LEFT;
-std::string FORCE_SENSED_KEY_RIGHT;
+
+//read
+// std::string OBJ_POS_KEY = "sai2::cs225a::project::rob_pos";
+ 
+
+
 // - write
 std::string JOINT_TORQUES_COMMANDED_KEY;
 
@@ -46,17 +48,13 @@ std::string ROBOT_GRAVITY_KEY;
 unsigned long long controller_counter = 0;
 
 const bool inertia_regularization = true;
-bool left_stop = false;
-bool right_stop = false;
+bool printJ = true;
 
 int main() {
 
 	JOINT_ANGLES_KEY = "sai2::cs225a::project::sensors::q";
 	JOINT_VELOCITIES_KEY = "sai2::cs225a::project::sensors::dq";
 	JOINT_TORQUES_COMMANDED_KEY = "sai2::cs225a::project::actuators::fgc";
-	FORCE_SENSED_KEY_LEFT = "sai2::cs225a::project::sensors::force_task_sensed_L";
-	FORCE_SENSED_KEY_RIGHT = "sai2::cs225a::project::sensors::force_task_sensed_R";
-
 
 	// start redis client
 	auto redis_client = RedisClient();
@@ -73,54 +71,22 @@ int main() {
 	VectorXd initial_q = robot->_q;
 	robot->updateModel();
 
-	Vector3d force_left, moment_left, force_right, moment_right;
 
 	// prepare controller
 	int dof = robot->dof();
 	// std::cout << "degrees of freedom:" << dof; // 20 for oceanone
 	VectorXd command_torques = VectorXd::Zero(dof);
 	MatrixXd N_prec = MatrixXd::Identity(dof, dof);
+	VectorXd sat_pos = VectorXd::Zero(3);
+	sat_pos << 0,0.5,0; //1,0.5,0
+    VectorXd Zero = VectorXd::Zero(dof);
+	// redis_client.setEigenMatrixJSON(OBJ_POS_KEY, sat_pos);
 
 	// pose task
-    VectorXd docking_position = VectorXd::Zero(dof);
+
+	VectorXd docking_position = VectorXd::Zero(dof);
 	docking_position=initial_q;
 
-	const string control_link_left = "endEffector_left";
-	const Vector3d control_point_left = Vector3d(0,0,0);
-	auto posori_task_left = new Sai2Primitives::PosOriTask(robot, control_link_left, control_point_left);
-
-	const string control_link_right = "endEffector_right";
-	const Vector3d control_point_right = Vector3d(0,0,0);
-	auto posori_task_right = new Sai2Primitives::PosOriTask(robot, control_link_right, control_point_right);
-
-	const string control_link_body = "Body";
-	const Vector3d control_point_body = Vector3d(0,0,0);
-	auto posori_task_body = new Sai2Primitives::PosOriTask(robot, control_link_body, control_point_body);
-#ifdef USING_OTG
-	posori_task_left->_use_interpolation_flag = true;
-	posori_task_right->_use_interpolation_flag = true;
-	posori_task_body->_use_interpolation_flag = true;
-#else
-	posori_task_left->_use_velocity_saturation_flag = true;
-	posori_task_right->_use_velocity_saturation_flag = true;
-	posori_task_body->_use_velocity_saturation_flag = true;
-#endif
-	
-	VectorXd posori_task_torques_left = VectorXd::Zero(dof);
-	VectorXd posori_task_torques_right = VectorXd::Zero(dof);
-	VectorXd posori_task_torques_body = VectorXd::Zero(dof);
-	posori_task_left->_kp_pos = 200.0;
-	posori_task_left->_kv_pos = 20.0;
-	posori_task_left->_kp_ori = 200.0;
-	posori_task_left->_kv_ori = 20.0;
-	posori_task_right->_kp_pos = 200.0;
-	posori_task_right->_kv_pos = 20.0;
-	posori_task_right->_kp_ori = 200.0;
-	posori_task_right->_kv_ori = 20.0;
-	posori_task_body->_kp_pos = 200.0;
-	posori_task_body->_kv_pos = 20.0;
-	posori_task_body->_kp_ori = 200.0;
-	posori_task_body->_kv_ori = 20.0;
 
 	// joint task
 	auto joint_task = new Sai2Primitives::JointTask(robot);
@@ -131,10 +97,6 @@ int main() {
 	joint_task->_use_velocity_saturation_flag = true;
 #endif
 
-	// VectorXd joint_task_torques = VectorXd::Zero(dof);
-	// joint_task->_kp = 400.0;
-	// joint_task->_kv = 40.0;
-
 	VectorXd joint_task_torques = VectorXd::Zero(dof);
 	joint_task->_kp = 250.0;
 	joint_task->_kv = 15.0;
@@ -143,11 +105,7 @@ int main() {
 	// q_init_desired << -30.0, -15.0, -15.0, -105.0, 0.0, 90.0, 45.0;
 	//q_init_desired.setZero();
 	//q_init_desired *= M_PI/180.0;
-	joint_task->_desired_position = q_init_desired;
-
-	Vector3d pos_init = (posori_task_left->_current_position + posori_task_right->_current_position)/2;
-	Matrix3d ori_init = posori_task_body->_current_orientation;
-	//double x_init = 0;
+	joint_task->_desired_position = q_init_desired; // may need to chage
 
 	// create a timer
 	LoopTimer timer;
@@ -155,6 +113,8 @@ int main() {
 	timer.setLoopFrequency(1000); 
 	double start_time = timer.elapsedTime(); //secs
 	bool fTimerDidSleep = true;
+
+	//setDynamicDecouplingNone();
 
 
 	ofstream myfile ("data.txt");
@@ -164,14 +124,6 @@ int main() {
         	exit (1);
     	}
 	N_prec.setIdentity();
-	posori_task_left->updateTaskModel(N_prec);
-	posori_task_right->updateTaskModel(N_prec);
-	double hug_start;
-	Vector3d hug_pos_left_init, hug_pos_right_init;
-	Matrix3d hug_ori_init;
-	double r = 0.6;
-	double freq = M_PI/20;
-	double eps = 0.01;
 
 	while (runloop) {
 		// wait for next scheduled loop
@@ -185,22 +137,12 @@ int main() {
 		// update model
 		robot->updateModel();
 	
-		// update task model and set hierarchy
-		MatrixXd J_tasks(12, dof);
-		J_tasks.block(0, 0, 6, dof) = posori_task_left->_jacobian;
-		J_tasks.block(6, 0, 6, dof) = posori_task_right->_jacobian;
-		MatrixXd N(dof,dof);
-		robot->nullspaceMatrix(N, J_tasks);
-
-		force_left = redis_client.getEigenMatrixJSON(FORCE_SENSED_KEY_LEFT);
-		force_right = redis_client.getEigenMatrixJSON(FORCE_SENSED_KEY_RIGHT);
-
-        if(state == NAVIGATOR)
+		if(state == NAVIGATOR)
 		{
 			// update task model and set hierarchy
 			joint_task->_desired_position = docking_position;
 			joint_task->_desired_position(0) = 3.15; //x
-			joint_task->_desired_position(1) = -0.17; //y
+			joint_task->_desired_position(1) = -0.15; //y
 			joint_task->_desired_position(2) = 0.0; //z
 			joint_task->_desired_position(3) = 0.0; //yaw
 			joint_task->_desired_position(4) = 0.0; //pitch
@@ -214,68 +156,15 @@ int main() {
 
 			// compute torques
 			joint_task->computeTorques(joint_task_torques);
-
-			// command_torques = joint_task_torques;
+            std::cout << "command_torques: " << command_torques << "\n";
 			command_torques = joint_task_torques;
-			std::cout << "command_torques: " << command_torques << "\n";
+            if(command_torques == Zero)
+            {
+                state =  STRETCH;
+                std::cout << "stretch"  << "\n";
+            }
+			
         }
-		else if(state == STRETCH) {
-			posori_task_left->_desired_position = pos_init + ori_init*Vector3d(0, r, 0);
-			posori_task_right->_desired_position = pos_init - ori_init*Vector3d(0, r, 0);
-			if( (posori_task_left->_desired_position - posori_task_left->_current_position).norm() < eps && (posori_task_right->_desired_position - posori_task_right->_current_position).norm() < eps) {
-				state = HUG;
-				hug_start = time;
-				hug_pos_left_init = posori_task_left->_current_position;
-				hug_pos_right_init = posori_task_right->_current_position;
-				hug_ori_init = posori_task_body->_current_orientation;
-			}
-		}
-		else {
-			if(force_left.norm() > 0) {
-				left_stop = true;
-			}
-			if(force_right.norm() > 0) {
-				right_stop = true;
-			}
-			if(!left_stop) {
-				posori_task_left->_desired_position = hug_pos_left_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), -sin(freq*(time - hug_start)), 0));
-			}
-			if(!left_stop) {
-				posori_task_right->_desired_position = hug_pos_right_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), sin(freq*(time - hug_start)), 0));
-			}
-
-		//joint_task->_desired_position = initial_q;
-		//joint_task->_desired_position(0) += 0.001;
-		}
-
-		N_prec.setIdentity();
-		posori_task_left->updateTaskModel(N_prec); //Operate in Nullspace 
-		N_prec = posori_task_left->_N;
-		joint_task->updateTaskModel(N);
-
-		// compute torques
-		posori_task_left->computeTorques(posori_task_torques_left);
-		posori_task_right->computeTorques(posori_task_torques_right);
-		//posori_task_body->computeTorques(posori_task_torques_body);
-		joint_task->computeTorques(joint_task_torques);
-	
-		command_torques = posori_task_torques_left + posori_task_torques_right + joint_task_torques;
-		
-		//cout << left_stop << endl << endl;
-		
-		if(controller_counter % 100 == 0) {
-			//cout << J_tasks << endl;
-			cout << posori_task_left->_current_position << endl << endl;
-			cout << posori_task_right->_current_position << endl << endl;
-		}
-		//for (int i = 0; i < 3; i++) {
-		//	myfile << posori_task_torques_left(i) << ", ";
-		//}			
-
-
-		// send to redis
-		//command_torques.setZero();
-		//command_torques(2)=0.5;
 		redis_client.setEigenMatrixJSON(JOINT_TORQUES_COMMANDED_KEY, command_torques);
 
 		controller_counter++;

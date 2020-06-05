@@ -117,7 +117,7 @@ int main() {
 
 	// load robot objects
 	auto object = new Sai2Model::Sai2Model(obj_file, false);
-	//object->_q(1) = 0.6;
+	object->_dq(0) = 0.0; //satellite motion
 	//object->_q(1) = -0.35;
 	object->updateModel();
 
@@ -125,6 +125,8 @@ int main() {
 	auto sim = new Simulation::Sai2Simulation(world_file, false);
 	sim->setJointPositions(robot_name, robot->_q);
 	sim->setJointPositions(obj_name, object->_q);
+	// sim->setJointVelocities(robot_name, robot->_q);
+	sim->setJointVelocities(obj_name, object->_dq);
 
     // set co-efficient of restition to zero for force control
     // see issue: https://github.com/manips-sai/sai2-simulation/issues/1
@@ -340,9 +342,9 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 	ui_force_command_torques.setZero();
 
 	Vector3d obj_offset;
-	obj_offset << 0, -0.35, 0.544;
+	obj_offset << -0.6, -0.8, -0.4; //wrt to world
 	Vector3d robot_offset;
-	robot_offset << 0.0, 0.3, 0.0;
+	robot_offset << -0.5, 4.0, 0.0; //wrt to world
 	double kvj = 10;
 
 	// init camera detection variables 
@@ -418,14 +420,14 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 		obj_pos += obj_offset;
 		camera_pos += robot_offset;  // camera position/orientation is set to the panda's last link
 		MatrixXd rotmat = MatrixXd::Zero(3,3);
-		rotmat(1,1)=1;
-		rotmat(0,0)=cos(RAD(-90));
-		rotmat(0,2)=sin(RAD(-90));
-		rotmat(2,0)=-sin(RAD(-90));
-		rotmat(2,2)=cos(RAD(-90));
+		rotmat(0,0)=1;
+		rotmat(1,1)=cos(RAD(90));
+		rotmat(1,2)=-sin(RAD(90));
+		rotmat(2,1)=sin(RAD(90));
+		rotmat(2,2)=cos(RAD(90));
 		camera_ori=rotmat*camera_ori;
 		// object camera detect 
-		detect = cameraFOV(obj_pos, camera_pos, camera_ori, 5.0, M_PI/6);
+		detect = cameraFOV(obj_pos, camera_pos, camera_ori, 10.0, M_PI/3);
 		if (detect == true) {
 			obj_pos(0) += dist(generator);  // add white noise 
 			obj_pos(1) += dist(generator);
