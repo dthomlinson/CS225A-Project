@@ -427,7 +427,7 @@ void simulation(Sai2Model::Sai2Model* robot, Sai2Model::Sai2Model* object, Simul
 		rotmat(2,2)=cos(RAD(90));
 		camera_ori=rotmat*camera_ori;
 		// object camera detect 
-		detect = cameraFOV(obj_pos, camera_pos, camera_ori, 10.0, M_PI/3);
+		detect = cameraFOV(obj_pos, camera_pos, camera_ori, 10.0, M_PI/2);
 		if (detect == true) {
 			obj_pos(0) += dist(generator);  // add white noise 
 			obj_pos(1) += dist(generator);

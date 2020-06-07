@@ -43,6 +43,7 @@ std::string JOINT_TORQUES_COMMANDED_KEY;
 std::string MASSMATRIX_KEY;
 std::string CORIOLIS_KEY;
 std::string ROBOT_GRAVITY_KEY;
+std::string OBJ_POS_KEY;
 
 unsigned long long controller_counter = 0;
 
@@ -57,6 +58,7 @@ int main() {
 	JOINT_TORQUES_COMMANDED_KEY = "sai2::cs225a::project::actuators::fgc";
 	FORCE_SENSED_KEY_LEFT = "sai2::cs225a::project::sensors::force_task_sensed_L";
 	FORCE_SENSED_KEY_RIGHT = "sai2::cs225a::project::sensors::force_task_sensed_R";
+	OBJ_POS_KEY = "sai2::cs225a::camera::obj_pos";
 
 	// start redis client
 	auto redis_client = RedisClient();
@@ -73,8 +75,10 @@ int main() {
 	VectorXd initial_q = robot->_q;
 	robot->updateModel();
 
+	VectorXd v = VectorXd::Zero(3);
+
 	// load graphics scene
-	auto graphics = new Sai2Graphics::Sai2Graphics(world_file, true);
+	// auto graphics = new Sai2Graphics::Sai2Graphics(world_file, true);
 
 	Vector3d force_left, moment_left, force_right, moment_right;
 
@@ -167,10 +171,14 @@ int main() {
 	Matrix3d hug_ori_init;
 	double r = 0.6;
 	double freq = M_PI/20;
-	double eps = 0.01;
-	double t_stop = 16;
+	double eps = 0.1;
+	double t_stop = 13.0;
 	double grasp_des_pos = 0.03;
-
+	VectorXd sat_pos_init = VectorXd::Zero(3);
+	VectorXd oceandelta = VectorXd::Zero(3);
+	VectorXd oceandeltaframe = VectorXd::Zero(3);
+	sat_pos_init = redis_client.getEigenMatrixJSON(OBJ_POS_KEY); 
+	
 	while (runloop) {
 		// wait for next scheduled loop
 		timer.waitForNextLoop();
@@ -179,7 +187,12 @@ int main() {
 		// read robot state from redis
 		robot->_q = redis_client.getEigenMatrixJSON(JOINT_ANGLES_KEY);
 		robot->_dq = redis_client.getEigenMatrixJSON(JOINT_VELOCITIES_KEY);
-
+		v = redis_client.getEigenMatrixJSON(OBJ_POS_KEY);
+		
+		oceandelta =  v - sat_pos_init;
+		oceandeltaframe(0)=-oceandelta(1);
+		oceandeltaframe(1)=oceandelta(0);
+		oceandeltaframe(2)=oceandelta(2);
 		// update model
 		robot->updateModel();
 	
@@ -189,13 +202,19 @@ int main() {
 		J_tasks.block(6, 0, 6, dof) = posori_task_right->_jacobian;
 		MatrixXd N(dof,dof);
 		robot->nullspaceMatrix(N, J_tasks);
+		joint_task->_desired_position(0) = -v(1)+2.75; //x
+		joint_task->_desired_position(1) = v(0)+0.41; //y
+		joint_task->_desired_position(2) = v(2)+0.3; //z
+		joint_task->_desired_position(3) = 0.0; //yaw
+		joint_task->_desired_position(4) = 0.0; //pitch
+		joint_task->_desired_position(5) = 0.0; //roll weird
 
 		force_left = redis_client.getEigenMatrixJSON(FORCE_SENSED_KEY_LEFT);
 		force_right = redis_client.getEigenMatrixJSON(FORCE_SENSED_KEY_RIGHT);
 
 		if(state == STRETCH) {
-			posori_task_left->_desired_position = pos_init + ori_init*Vector3d(0, r, 0);
-			posori_task_right->_desired_position = pos_init - ori_init*Vector3d(0, r, 0);
+			posori_task_left->_desired_position = pos_init + ori_init*Vector3d(0, r, 0)+oceandeltaframe;
+			posori_task_right->_desired_position = pos_init - ori_init*Vector3d(0, r, 0)+oceandeltaframe;
 			if( (posori_task_left->_desired_position - posori_task_left->_current_position).norm() < eps && (posori_task_right->_desired_position - posori_task_right->_current_position).norm() < eps) {
 				state = HUG;
 				hug_start = time;
@@ -216,10 +235,10 @@ int main() {
 				grasp_pos_right_init = posori_task_right->_current_position;
 			}
 			if(!left_stop) {
-				posori_task_left->_desired_position = hug_pos_left_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), -sin(freq*(time - hug_start)), 0));
+				posori_task_left->_desired_position = oceandeltaframe + hug_pos_left_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), -sin(freq*(time - hug_start)), 0));
 			}
 			if(!right_stop) {
-				posori_task_right->_desired_position = hug_pos_right_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), sin(freq*(time - hug_start)), 0));
+				posori_task_right->_desired_position = oceandeltaframe + hug_pos_right_init + hug_ori_init*(r*Vector3d(cos(freq*(time - hug_start)), sin(freq*(time - hug_start)), 0));
 			}
 			if(left_stop && right_stop) {
 				state = GRASP;
@@ -229,8 +248,8 @@ int main() {
 		//joint_task->_desired_position(0) += 0.001;
 		}
 		else {
-			posori_task_left->_desired_position = grasp_pos_left_init + hug_ori_init*(Vector3d(0,-grasp_des_pos,0));
-			posori_task_right->_desired_position = grasp_pos_right_init + hug_ori_init*(Vector3d(0,grasp_des_pos,0));
+			posori_task_left->_desired_position = oceandeltaframe+grasp_pos_left_init + hug_ori_init*(Vector3d(0,-grasp_des_pos,0));
+			posori_task_right->_desired_position = oceandeltaframe+grasp_pos_right_init + hug_ori_init*(Vector3d(0,grasp_des_pos,0));
 		}
 
 		N_prec.setIdentity();

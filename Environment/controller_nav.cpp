@@ -42,6 +42,7 @@ std::string JOINT_TORQUES_COMMANDED_KEY;
 std::string MASSMATRIX_KEY;
 std::string CORIOLIS_KEY;
 std::string ROBOT_GRAVITY_KEY;
+std::string OBJ_POS_KEY;
 
 unsigned long long controller_counter = 0;
 
@@ -69,6 +70,7 @@ int main() {
 	JOINT_ANGLES_KEY = "sai2::cs225a::project::sensors::q";
 	JOINT_VELOCITIES_KEY = "sai2::cs225a::project::sensors::dq";
 	JOINT_TORQUES_COMMANDED_KEY = "sai2::cs225a::project::actuators::fgc";
+	OBJ_POS_KEY = "sai2::cs225a::camera::obj_pos";
 
 	// start redis client
 	auto redis_client = RedisClient();
@@ -84,6 +86,7 @@ int main() {
 	robot->_q = redis_client.getEigenMatrixJSON(JOINT_ANGLES_KEY);
 	VectorXd initial_q = robot->_q;
 	robot->updateModel();
+	VectorXd v = VectorXd::Zero(3);
 
 
 	// prepare controller
@@ -163,6 +166,7 @@ int main() {
 		// read robot state from redis
 		robot->_q = redis_client.getEigenMatrixJSON(JOINT_ANGLES_KEY);
 		robot->_dq = redis_client.getEigenMatrixJSON(JOINT_VELOCITIES_KEY);
+		v = redis_client.getEigenMatrixJSON(OBJ_POS_KEY);
 
 		// update model
 		robot->updateModel();
@@ -171,9 +175,9 @@ int main() {
 		{
 			// update task model and set hierarchy
 			joint_task->_desired_position = docking_position;
-			joint_task->_desired_position(0) = 3.15; //x
-			joint_task->_desired_position(1) = -0.15; //y
-			joint_task->_desired_position(2) = 0.0; //z
+			joint_task->_desired_position(0) = -v(1)+2.4; //x
+			joint_task->_desired_position(1) = v(0)+0.45; //y
+			joint_task->_desired_position(2) = v(2)+0.3; //z
 			joint_task->_desired_position(3) = 0.0; //yaw
 			joint_task->_desired_position(4) = 0.0; //pitch
 			joint_task->_desired_position(5) = 0.0; //roll weird
