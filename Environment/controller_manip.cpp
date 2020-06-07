@@ -172,7 +172,7 @@ int main() {
 	double r = 0.6;
 	double freq = M_PI/20;
 	double eps = 0.1;
-	double t_stop = 13.0;
+	double t_stop = 14.0;
 	double grasp_des_pos = 0.03;
 	VectorXd sat_pos_init = VectorXd::Zero(3);
 	VectorXd oceandelta = VectorXd::Zero(3);
