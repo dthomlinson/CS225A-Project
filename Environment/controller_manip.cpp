@@ -172,8 +172,10 @@ int main() {
 	double r = 0.6;
 	double freq = M_PI/20;
 	double eps = 0.1;
-	double t_stop = 14.0;
-	double grasp_des_pos = 0.03;
+	double t_stop = 5.0;
+	double t_strech;
+	// double t_stop = 15.0;
+	double grasp_des_pos = 0.04;
 	VectorXd sat_pos_init = VectorXd::Zero(3);
 	VectorXd oceandelta = VectorXd::Zero(3);
 	VectorXd oceandeltaframe = VectorXd::Zero(3);
@@ -203,7 +205,7 @@ int main() {
 		MatrixXd N(dof,dof);
 		robot->nullspaceMatrix(N, J_tasks);
 		joint_task->_desired_position(0) = -v(1)+2.75; //x
-		joint_task->_desired_position(1) = v(0)+0.41; //y
+		joint_task->_desired_position(1) = v(0)+0.40; //y
 		joint_task->_desired_position(2) = v(2)+0.3; //z
 		joint_task->_desired_position(3) = 0.0; //yaw
 		joint_task->_desired_position(4) = 0.0; //pitch
@@ -221,15 +223,16 @@ int main() {
 				hug_pos_left_init = posori_task_left->_current_position;
 				hug_pos_right_init = posori_task_right->_current_position;
 				hug_ori_init = posori_task_body->_current_orientation;
+				t_strech = time; 
 			}
 		}
 		else if(state == HUG){
-			if(force_left.norm() > 0 || time > t_stop) {
+			if(force_left.norm() > 0 || time > t_stop + t_strech) {
 				left_stop = true;
 				posori_task_left->_desired_position = posori_task_left->_current_position;
 				grasp_pos_left_init = posori_task_left->_current_position;
 			}
-			if(force_right.norm() > 0 || time > t_stop) {
+			if(force_right.norm() > 0 || time > t_stop + t_strech) {
 				right_stop = true;
 				posori_task_right->_desired_position = posori_task_right->_current_position;
 				grasp_pos_right_init = posori_task_right->_current_position;
@@ -269,8 +272,8 @@ int main() {
 		
 		if(controller_counter % 100 == 0) {
 			//cout << J_tasks << endl;
-			cout << posori_task_left->_current_position << endl << endl;
-			cout << posori_task_right->_current_position << endl << endl;
+		// 	cout << posori_task_left->_current_position << endl << endl;
+		// 	cout << posori_task_right->_current_position << endl << endl;
 		}
 		//for (int i = 0; i < 3; i++) {
 		//	myfile << posori_task_torques_left(i) << ", ";

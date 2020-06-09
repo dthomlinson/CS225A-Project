@@ -61,7 +61,7 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <!-- <mesh filename="../../../model/test_objects/meshes/collision/satellite4.obj"/> -->
-          <box size="0.5 1.0 0.5" />
+          <box size="0.45 1.0 0.45" />
         </geometry>
       </collision>
     </link>
